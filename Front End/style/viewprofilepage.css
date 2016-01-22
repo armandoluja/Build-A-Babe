@@ -1,0 +1,25 @@
+.profile-image{
+    width: 100%;
+}
+
+.gallery-image{
+    width: 80%;
+    margin: 10%;
+}
+
+.view-more{
+    float: right;
+}
+
+.convo-you{
+    text-align: right;
+}
+
+.convo-them{
+    text-align: left;
+}
+
+.convo-send-btn{
+    float: right;
+}
+
