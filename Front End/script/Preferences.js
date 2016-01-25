@@ -1,7 +1,8 @@
 "use-strict";
 function showMinAge(newValue) {
+	newValue = parseInt(newValue);
 	var max = document.getElementById("inputMaxAge");
-	if (max.value < parseInt(newValue)) {
+	if (max.value < newValue) {
 		max.value = newValue;
 		document.getElementById("maxAge").innerHTML = newValue;
 	}
@@ -9,6 +10,7 @@ function showMinAge(newValue) {
 }
 
 function showMaxAge(newValue) {
+	newValue = parseInt(newValue);
 	var min = document.getElementById("inputMinAge");
 	if (min.value > newValue) {
 		min.value = newValue;
@@ -18,10 +20,12 @@ function showMaxAge(newValue) {
 }
 
 function showHeight(newValue) {
+	newValue = parseInt(newValue);
 	document.getElementById("height").innerHTML = calculateHeightDisplayString(newValue);
 }
 
 function showMinHeight(newValue) {
+	newValue = parseInt(newValue);
 	var max = document.getElementById("inputMaxHeight");
 	var val = calculateHeightDisplayString(newValue);
 	if (max.value < newValue) {
@@ -32,6 +36,7 @@ function showMinHeight(newValue) {
 }
 
 function showMaxHeight(newValue) {
+	newValue = parseInt(newValue);
 	var min = document.getElementById("inputMinHeight");
 	var val = calculateHeightDisplayString(newValue);
 	if (min.value > newValue) {
@@ -44,5 +49,5 @@ function showMaxHeight(newValue) {
 function calculateHeightDisplayString(inches){
 	var feet = parseInt(inches / 12);
 	var inches = inches % 12;
-	return feet+ " ' " + inches + " \"";
+	return feet+ "' " + inches + "\"";
 }
