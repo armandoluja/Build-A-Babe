@@ -89,7 +89,20 @@ function login(userNameOptional, passwordOptional, useOptionalParameters) {
 			//'cast' to a json object
 			var json = JSON.parse(returnData);
 			if(json.error){
-				alert("invalid username/password :" + json.err_pos);
+				if(json.err_pos === 1){
+					alert("Invalid username or password");
+				}
+				else if(json.err_pos === 2){
+					alert("Database error");
+				}
+				else if(json.err_pos === 3){
+					alert("Invalid username or password");
+				}
+				else if(json.err_pos === 4){
+					alert("Invalid username or password length");
+				}
+				
+				//alert("invalid username/password :" + json.err_pos);
 			}else{
 				if(json.cookie != null){
 					if(parseInt(json.cookie.length) == 40 ){
@@ -151,7 +164,22 @@ function checkPassword(pass, passConfirm){
 
 function giveUsernameInvalidError(code){
 	//TODO: alert invalid username
-	alert("invalid username" + code);
+	//alert("invalid username" + code);
+	if(code === 1){
+		alert("Invalid username")
+	}
+	else if(code ===2){
+		alert("Server failure")
+	}
+	else if(code ===3){
+		alert("Username is already taken")
+	}
+	else if(code ===4){
+		alert("Server failure")
+	}
+	else if(code ===5){
+		alert("Incorrect username or password length")
+	}
 }
 
 
