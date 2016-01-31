@@ -19,36 +19,32 @@ if (isset($_POST['username']) && strlen($_POST['username']) > 0 &&
 	$saltFetch = $getSaltPrep -> fetch();
 	$salt = $saltFetch['salt'];
 	$calculatedPassword = sha1($password.$salt);
-	//hashing here
-	// and here
-	// and here too
-	// and probly here
-	// maybe done here
-	//for sure done here
-	//hashed af
+	//hashed
 	
-	$getExistsPrep = $db -> prepare('Select count(username) as numFound from LOGIN where username = ? and password = ?');
+	$getExistsPrep = $db -> prepare('Select id from LOGIN where username = ? and password = ?');
 	$getExistsPrep -> execute(array($username, $calculatedPassword));
 	
-	if($getExistsPrep->rowCount()< 1){
+	if($getExistsPrep->rowCount() < 1){
 		echo '{"error": true, "err_pos": 2}';
 		exit;
 	}
 	
-	$numFoundFetch = $getExistsPrep -> fetch();
-	$numFound = $numFoundFetch['numFound'];
-	
-	if($numFound == 0){
+	if($getExistsPrep->rowCount() > 1){
 		echo '{"error": true, "err_pos": 3}';
 		exit;
 	}
+	
+	
+	$numFoundFetch = $getExistsPrep -> fetch();
+	$userId = $numFoundFetch['id'];
+	
 	
 	$generatedCookie = generateRandomString($COOKIE_LENGTH);
 	$updatePrep = $db -> prepare('Update LOGIN set session_cookie = ? Where username = ?');
 	$updatePrep -> execute(array($generatedCookie, $username));
 	
 		
-	echo '{"error": false, "cookie":"'.$generatedCookie.'"}';
+	echo '{"error": false, "cookie":"'.$generatedCookie.'", "userId":"'.$userId.'"}';
 } else {
 	echo '{"error": true, "err_pos": 4}';
 }

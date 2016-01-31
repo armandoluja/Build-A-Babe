@@ -4,7 +4,7 @@
 		<meta charset="UTF-8"/>
 		<meta name = "viewport" content = "width=device-width,initial-scale=1" />
 		<title></title>
-		<link rel="stylesheet" type="text/css" href="https://bootswatch.com/cerulean/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="style/bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" href="style/ProfileCharacteristics.css"/>
 		<script type="text/javascript" src="script/Preferences.js"></script>
 	</head>
