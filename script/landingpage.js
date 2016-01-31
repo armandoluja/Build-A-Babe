@@ -15,7 +15,7 @@ $(window).load(function() {
 			type: "POST";
 			url: loginCheckUrl;
 			data:{
-				"userID":userID,
+				"userID":userId,
 				"session":sessionCookie
 			}
 		}).always(function(returnData){

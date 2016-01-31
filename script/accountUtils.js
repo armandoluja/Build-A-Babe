@@ -1,4 +1,32 @@
 "use-strict";
+const logoutUrl = "API/signout.php";
+const cookieName = "session";
+const userIdCookie = "userID";
+const loginURL = "index.html";
+
+$(window).load(function(){
+	$("#signout_btn").click(function(){
+		signout();
+	});
+});
+
+function signout(){
+	var sessionCookie = getCookie(cookieName);
+	var userID = getCookie(userIdCookie);
+	$.ajax({
+		type:"POST",
+		url: logoutUrl,
+		data:{
+			"userID":userID,
+			"session":sessionCookie
+		}
+	}).always(function(returnData){
+		alert("logging out " + returnData);
+		window.location.href = loginURL;
+	});
+	window.location.href = loginURL;
+}
+
 function showMinAge(newValue) {
 	newValue = parseInt(newValue);
 	var max = document.getElementById("inputMaxAge");
