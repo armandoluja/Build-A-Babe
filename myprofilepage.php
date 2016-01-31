@@ -1,3 +1,6 @@
+<?php
+include('API/embeddedLoginCheck.php');
+?>
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -16,11 +19,11 @@
 	</head>
 	<body>
 		<?php
-		include("navbar.php");
+		include ("navbar.php");
 		?>
 		<div class="row">
-		</br>
-		</br>
+			</br>
+			</br>
 		</div>
 
 		<div class="container">

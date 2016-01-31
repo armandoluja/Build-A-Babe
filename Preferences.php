@@ -1,14 +1,12 @@
+<?php
+include('API/embeddedLoginCheck.php');
+?> 
 <html>
 	<head>
 		<meta charset="UTF-8"/>
 		<meta name = "viewport" content = "width=device-width,initial-scale=1" />
-<<<<<<< HEAD
-		<title>Build-A-Babe<</title>
-		<link rel="stylesheet" type="text/css" href="https://bootswatch.com/cerulean/bootstrap.min.css" />
-=======
-		<title></title>
+		<title>Build-A-Babe</title>
 		<link rel="stylesheet" type="text/css" href="style/bootstrap.min.css" />
->>>>>>> origin/master
 		<link rel="stylesheet" type="text/css" href="style/ProfileCharacteristics.css"/>
 		<link rel="stylesheet" href="style/myfont.css" type="text/css">
 		<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
