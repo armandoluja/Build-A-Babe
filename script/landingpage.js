@@ -4,7 +4,7 @@ const registerURL = "API/register.php";
 const loginCheckUrl = "API/logincheck.php";
 const myProfilePage = "myprofilepage.html";
 const cookieName = "session";
-const userIdCookie = "userID";
+const userIdCookie = "userId";
 const minPasswordLength = 6;
 
 $(window).load(function() {
@@ -12,15 +12,20 @@ $(window).load(function() {
 		var sessionCookie = getCookie(cookieName);
 		var userId = getCookie(userIdCookie);
 		$.ajax({
-			type: "POST";
-			url: loginCheckUrl;
+			type: "POST",
+			url: loginCheckUrl,
 			data:{
-				"userID":userId,
+				"userId":userId,
 				"session":sessionCookie
 			}
 		}).always(function(returnData){
-			var json = JSON.parse();
-			//TODO: JACK
+		//document.write(returnData);
+			var json = JSON.parse(returnData);
+			if(json.error == false){
+				window.location.href = myProfilePage;
+			}else{
+				alert("session login failed");
+			}
 		});
 		return;
 	}
@@ -107,7 +112,7 @@ function login(userNameOptional, passwordOptional, useOptionalParameters) {
 					alert("Invalid username or password");
 				}
 				else if(json.err_pos === 2){
-					alert("Database error");
+					alert("Invalid username or password");
 				}
 				else if(json.err_pos === 3){
 					alert("Invalid username or password");
@@ -118,10 +123,11 @@ function login(userNameOptional, passwordOptional, useOptionalParameters) {
 				
 				//alert("invalid username/password :" + json.err_pos);
 			}else{
-				if(json.cookie != null){
+				if(json.cookie != null && json.userId != null){
 					if(parseInt(json.cookie.length) == 40 ){
-						setCookie(cookieName,json.cookie);
-						window.location.href= myProfilePage;
+						setCookie(cookieName, json.cookie);
+						setCookie(userIdCookie, json.userId);
+						window.location.href = myProfilePage;
 						return;
 					}
 				}
