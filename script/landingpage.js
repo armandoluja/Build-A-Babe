@@ -1,13 +1,27 @@
 "use-strict";
 const loginURL = "API/login.php";
 const registerURL = "API/register.php";
+const loginCheckUrl = "API/logincheck.php";
 const myProfilePage = "myprofilepage.html";
 const cookieName = "session";
+const userIdCookie = "userID";
 const minPasswordLength = 6;
 
 $(window).load(function() {
 	if(getCookie(cookieName) != ""){
-		window.location.href= myProfilePage;
+		var sessionCookie = getCookie(cookieName);
+		var userId = getCookie(userIdCookie);
+		$.ajax({
+			type: "POST";
+			url: loginCheckUrl;
+			data:{
+				"userID":userID,
+				"session":sessionCookie
+			}
+		}).always(function(returnData){
+			var json = JSON.parse();
+			//TODO: JACK
+		});
 		return;
 	}
 	
