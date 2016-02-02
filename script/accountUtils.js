@@ -1,8 +1,4 @@
 "use-strict";
-const logoutUrl = "API/signout.php";
-const cookieName = "session";
-const userIdCookie = "userId";
-const loginURL = "index.html";
 
 $(window).load(function(){
 	$("#signout_btn").click(function(){
@@ -26,7 +22,7 @@ function signout(){
 		deleteCookie(userIdCookie);
 		setCookie(cookieName, "");
 		deleteCookie(cookieName);
-		window.location.href = loginURL;
+		window.location.href = indexURL;
 	});
 }
 

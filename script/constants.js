@@ -5,3 +5,5 @@ const myProfilePage = "myprofilepage.php";
 const cookieName = "session";
 const userIdCookie = "userId";
 const minPasswordLength = 6;
+const logoutUrl = "API/signout.php";
+const indexURL = "index.html";
