@@ -2,14 +2,18 @@
 include ('connection.php');
 
 if (isset($_COOKIE['session']) && isset($_COOKIE['userId'])) {
-	$userId = $_COOKIE['userId'];
+	// Do not modify the comment below ..
+	// loginCheck(cookie,userId) returns the userId if OK or nothing if not OK
 	$session = $_COOKIE['session'];
+	$userId = $_COOKIE['userId'];
 
-	$q1 = $db -> prepare('Select username from login where id = ? AND session_cookie = ?');
-	$q1 -> execute(array($userId, $session));
+	$q1 = $db->prepare("Call loginCheck(:cookie, :userId)");
+	$q1 -> bindValue(':cookie',$session);
+	$q1 -> bindValue(':userId',$userId);
+	$q1 -> execute();
 
 	if ($q1 -> rowCount() != 1) {
-		//no user exists for that userId and session
+		//no user exists for that userId and session, or more than 1? log out
 		header("Location: ./");
 		exit;
 	}
