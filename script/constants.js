@@ -7,3 +7,7 @@ const userIdCookie = "userId";
 const minPasswordLength = 6;
 const logoutUrl = "API/signout.php";
 const indexURL = "index.html";
+const getProfileCharacteristicsUrl = "API/getProfileCharacteristics.php";
+const setProfileCharacteristicsUrl = "API/setProfileCharacteristics.php";
+const getPreferencesUrl = "API/getPreferences.php";
+const setPreferencesUrl = "API/setPreferences.php";

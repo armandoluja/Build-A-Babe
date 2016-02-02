@@ -1,5 +1,5 @@
 <?php
-include('API/embeddedLoginCheck.php');
+include ('API/embeddedLoginCheck.php');
 ?>
 <html>
 	<head>
@@ -12,7 +12,7 @@ include('API/embeddedLoginCheck.php');
 	</head>
 	<body>
 		<?php
-		include("navbar.php");
+		include ("navbar.php");
 		?>
 		<div class="row">
 		</br>
@@ -31,7 +31,7 @@ include('API/embeddedLoginCheck.php');
 			<div class = "col-sm-8 col-sm-offset-2">
 				<div class = "well bs-component">
 					<div ng-app="appForm" ng-controller="ctrlName">
-					<form class="form-horizontal">
+					<form name="profileCharForm" class="form-horizontal">
 						<fieldset>
 							<legend>
 								Please fill out your characteristics.
@@ -40,13 +40,18 @@ include('API/embeddedLoginCheck.php');
 							<div class="form-group">
 								<span class="help-block"></span>
 								<label class="col-sm-2 control-label">Name</label>
-								<span class="help-block"></span>
 										<div class="col-sm-5">
-											<input required valid-name type="text" ng-model="firstName" placeholder="First" maxlength="16"  class="form-control" id="inputFirstName"></input>
+											<input id="inputFirstName"  name="firstName"  ng-model="firstName" 
+											type="text" placeholder="First" maxlength="16"  class="form-control" 
+											valid-name required></input>
+											<span class="help-block" ng-show="profileCharForm.firstName.$touched && profileCharForm.firstName.$invalid">Invalid first name.</span>
 										</div>
 										<span class="help-block"></span>
 										<div class="col-sm-5">
-											<input required valid-name type="text" ng-model="lastName" placeholder="Last" maxlength="16" class="form-control" id="inputLastName"></input>
+											<input id="inputLastName" name="lastName" ng-model="lastName" 
+											type="text"  placeholder="Last" maxlength="16" class="form-control" 
+											valid-name required></input>
+											<span class="help-block" ng-show="profileCharForm.lastName.$touched && profileCharForm.lastName.$invalid">Invalid last name.</span>
 										</div>
 								
 							</div>
@@ -95,9 +100,11 @@ include('API/embeddedLoginCheck.php');
 							
 							<div class="form-group">
 								<label class="col-lg-2 control-label">Bio</label>
-								<div class="col-lg-10">
+								<div class="col-lg-10"  >
 									<span class="help-block">Say something about yourself.</span>
-									<textarea class="form-control" rows="3" id="textArea"></textarea>
+									<textarea name="bio" ng-model="bio" class="form-control" rows="3" id="textArea"
+									valid-bio></textarea>
+									<span ng-show="profileCharForm.bio.$invalid">Too long!</span>
 								</div>
 							</div>
 							
@@ -232,8 +239,8 @@ include('API/embeddedLoginCheck.php');
 									<span id="maxDistRange">10</span>
 								</div> 
 								<script type="text/javascript">
-									function showValue(newValue){
-										document.getElementById("maxDistRange").innerHTML=newValue;
+									function showValue(newValue) {
+										document.getElementById("maxDistRange").innerHTML = newValue;
 									}
 								</script>
 							</div>

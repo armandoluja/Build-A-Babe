@@ -2,7 +2,13 @@ input.ng-invalid {
     background-color:pink;
 }
 input.ng-valid {
-    background-color:lightgreen;
+    background-color:#ddffe1;
+}
+textarea.ng-invalid {
+    background-color:pink;
+}
+textarea.ng-valid {
+    background-color:#ddffe1;
 }
 .skinColorOption{
 	min-height: 2em;

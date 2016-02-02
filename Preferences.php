@@ -14,6 +14,7 @@ include('API/embeddedLoginCheck.php');
 		<script type="text/javascript" src="script/accountUtils.js"></script>
 		<script type="text/javascript" src="script/cookie.js"></script>
 		<script type="text/javascript" src="script/constants.js"></script>
+		<script type="text/javascript" src="script/preferences.js"></script>
 	</head>
 	
 	<body>
@@ -45,14 +46,14 @@ include('API/embeddedLoginCheck.php');
 								<div class="col-sm-3">
 									<div class="radio">
 										<label>
-											<input type="radio" name="genderRadio" value="M" checked="checked">
+											<input id="radio_male" type="radio" name="genderRadio" value="M" checked="checked">
 											MALE</label>
 									</div>
 								</div>
 								<div class="col-sm-3">
 									<div class="radio">
 										<label>
-											<input type="radio" name="genderRadio" value="F">
+											<input id="radio_female" type="radio" name="genderRadio" value="F">
 											FEMALE</label>
 									</div>
 								</div>
@@ -135,7 +136,7 @@ include('API/embeddedLoginCheck.php');
 							<div class="form-group">
 								<label class="col-sm-2 control-label">Favorite Eye Color</label>
 								<div class="col-sm-10">
-									<select name="eyeColor_1" class="form-control" id="selectEyeColor">
+									<select name="eyeColor_1" class="form-control" id="selectEyeColor_1">
 										<option name="eyeColor_1" value="0">Dark Brown</option>
 										<option name="eyeColor_1" value="1">Light Brown</option>
 										<option name="eyeColor_1" value="2">Blue</option>
@@ -148,7 +149,7 @@ include('API/embeddedLoginCheck.php');
 							<div class="form-group">
 								<label class="col-sm-2 control-label">Second Favorite Eye Color</label>
 								<div class="col-sm-10">
-									<select name="eyeColor_2" class="form-control" id="selectEyeColor">
+									<select name="eyeColor_2" class="form-control" id="selectEyeColor_2">
 										<option name="eyeColor_2" value="0">Dark Brown</option>
 										<option name="eyeColor_2" value="1">Light Brown</option>
 										<option name="eyeColor_2" value="2">Blue</option>
@@ -236,25 +237,14 @@ include('API/embeddedLoginCheck.php');
 								</div>
 							</div>
 							
-							<div class="form-group">
-								<label class="col-sm-2 control-label">Maximum Search Distance (mi)</label>
-								<div class="col-sm-10">
-									<input type="range" max="100" min="1" step="1" value="10" onmousemove="showValue(this.value)"/>
-									<span id="maxDistRange">10</span>
-								</div> 
-								<script type="text/javascript">
-									function showValue(newValue){
-										document.getElementById("maxDistRange").innerHTML=newValue;
-									}
-								</script>
-							</div>
+							
 							
 							<div class="form-group">
 								<div class="col-sm-10 col-sm-offset-2">
-									<button id="preference_cancel_btn" type="button" class="btn btn-default">
+									<button id="cancel_preference_btn" type="button" class="btn btn-default">
 										Cancel
 									</button>
-									<button id="preference_save_btn" type="button" class="btn btn-primary">
+									<button id="save_preference_btn" type="button" class="btn btn-primary">
 										Save
 									</button>
 								</div>
