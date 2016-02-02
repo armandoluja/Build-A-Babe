@@ -71,6 +71,17 @@ $(window).load(function() {
 		
 	});
 	
+	//Log in or sign up on enter key pressed
+	$(document).keypress(function(e) {
+		if(e.which == 13) {
+			if($("#inputUsernameSignup").val().length > 0 && $("#inputPasswordSignup").val().length > 0 && $("#inputPasswordAgainSignup").val().length > 0){
+				$( "#signup_btn" ).trigger( "click" );
+			} else {
+				$( "#login_btn" ).trigger( "click" );
+			}
+		}
+	});
+	
 	
 });
 
