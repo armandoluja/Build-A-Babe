@@ -26,7 +26,7 @@
 						<a id="signout_btn" href="#">Sign out</a>
 					</li>
 					<li>
-						<a href="./myprofilepage.php" target="_blank">My Profile</a>
+						<a href="./myprofilepage.php">My Profile</a>
 					</li>
 				</ul>
 			</div>
