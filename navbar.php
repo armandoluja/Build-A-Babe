@@ -14,10 +14,10 @@
 			<div class="navbar-collapse collapse" id="navbar-main">
 				<ul class="nav navbar-nav">
 					<li>
-						<a href="../browse/">Browse</a>
+						<a href="./browse.php">Browse</a>
 					</li>
 					<li>
-						<a href="http://news.bootswatch.com">Chat</a>
+						<a href="./chat.php">Chat</a>
 					</li>
 				</ul>
 
@@ -26,7 +26,7 @@
 						<a id="signout_btn" href="#">Sign out</a>
 					</li>
 					<li>
-						<a href="https://wrapbootstrap.com/?ref=bsw" target="_blank">My Profile</a>
+						<a href="./myprofilepage.php" target="_blank">My Profile</a>
 					</li>
 				</ul>
 			</div>

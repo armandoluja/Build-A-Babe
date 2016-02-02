@@ -18,16 +18,17 @@ include('API/embeddedLoginCheck.php');
 
 	</head>
 	<body>
+		
+		<div class="container">
+
 		<?php
-		include ("navbar.php");
+			include ("navbar.php");
 		?>
 		<div class="row">
 			</br>
 			</br>
 		</div>
-
-		<div class="container">
-
+		
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="page-header">
