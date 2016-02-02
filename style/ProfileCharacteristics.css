@@ -1,3 +1,9 @@
+input.ng-invalid {
+    background-color:pink;
+}
+input.ng-valid {
+    background-color:lightgreen;
+}
 .skinColorOption{
 	min-height: 2em;
 	min-width: 2em;

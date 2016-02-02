@@ -78,3 +78,7 @@ function calculateHeightDisplayString(inches){
 	var inches = inches % 12;
 	return feet+ "' " + inches + "\"";
 }
+
+function containsOnlyLetters(string){
+	return /^[a-z]+$/i.test(string);
+}

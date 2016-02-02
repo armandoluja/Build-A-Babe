@@ -9,15 +9,8 @@ include('API/embeddedLoginCheck.php');
 		<link rel="stylesheet" type="text/css" href="style/bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" href="style/ProfileCharacteristics.css"/>
 		<link rel="stylesheet" href="style/myfont.css" type="text/css">
-		<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="script/accountUtils.js"></script>
-		<script type="text/javascript" src="script/cookie.js"></script>
-		<script type="text/javascript" src="script/constants.js"></script>
 	</head>
-	
 	<body>
-		
 		<?php
 		include("navbar.php");
 		?>
@@ -37,6 +30,7 @@ include('API/embeddedLoginCheck.php');
 			<div class="row">
 			<div class = "col-sm-8 col-sm-offset-2">
 				<div class = "well bs-component">
+					<div ng-app="appForm" ng-controller="ctrlName">
 					<form class="form-horizontal">
 						<fieldset>
 							<legend>
@@ -47,13 +41,14 @@ include('API/embeddedLoginCheck.php');
 								<span class="help-block"></span>
 								<label class="col-sm-2 control-label">Name</label>
 								<span class="help-block"></span>
-								<div class="col-sm-5">
-									<input type="text" placeholder="First" maxlength="16"  class="form-control" id="inputFirstName"></input>
-								</div>
-								<span class="help-block"></span>
-								<div class="col-sm-5">
-									<input type="text" placeholder="Last" maxlength="16" class="form-control" id="inputLastName"></input>
-								</div>
+										<div class="col-sm-5">
+											<input required valid-name type="text" ng-model="firstName" placeholder="First" maxlength="16"  class="form-control" id="inputFirstName"></input>
+										</div>
+										<span class="help-block"></span>
+										<div class="col-sm-5">
+											<input required valid-name type="text" ng-model="lastName" placeholder="Last" maxlength="16" class="form-control" id="inputLastName"></input>
+										</div>
+								
 							</div>
 							
 							<div class="form-group">
@@ -111,14 +106,14 @@ include('API/embeddedLoginCheck.php');
 								<div class="col-sm-3">
 									<div class="radio">
 										<label>
-											<input type="radio" name="genderRadio" value="M" checked="checked">
+											<input id="radio_male" type="radio" name="genderRadio" value="M" checked="checked">
 											MALE</label>
 									</div>
 								</div>
 								<div class="col-sm-3">
 									<div class="radio">
 										<label>
-											<input type="radio" name="genderRadio" value="F">
+											<input id="radio_female" type="radio" name="genderRadio" value="F">
 											FEMALE</label>
 									</div>
 								</div>
@@ -139,9 +134,10 @@ include('API/embeddedLoginCheck.php');
 								<div class="col-sm-10">
 									<select name="hairColor" class="form-control" id="selectHairColor">
 										<option name="hairColor" value="0">Black</option>
-										<option name="hairColor" value="1">Brown</option>
-										<option name="hairColor" value="2">Blonde</option>
-										<option name="hairColor" value="3">Red</option>
+										<option name="hairColor" value="1">Light Brown</option>
+										<option name="hairColor" value="2">Dark Brown</option>
+										<option name="hairColor" value="3">Blonde</option>
+										<option name="hairColor" value="4">Red</option>
 									</select>
 								</div>
 							</div>
@@ -232,7 +228,7 @@ include('API/embeddedLoginCheck.php');
 							<div class="form-group">
 								<label class="col-sm-2 control-label">Maximum Search Distance (mi)</label>
 								<div class="col-sm-10">
-									<input type="range" max="100" min="1" step="1" value="10" onmousemove="showValue(this.value)"/>
+									<input id="maxDistInput" type="range" max="100" min="1" step="1" value="10" onmousemove="showValue(this.value)"/>
 									<span id="maxDistRange">10</span>
 								</div> 
 								<script type="text/javascript">
@@ -244,10 +240,10 @@ include('API/embeddedLoginCheck.php');
 							
 							<div class="form-group">
 								<div class="col-sm-10 col-sm-offset-2">
-									<button type="reset" class="btn btn-default">
+									<button id="cancel_prof_chars" type="reset" class="btn btn-default">
 										Cancel
 									</button>
-									<button type="submit" class="btn btn-primary">
+									<button id="save_prof_chars" type="button" class="btn btn-primary">
 										Save
 									</button>
 								</div>
@@ -255,12 +251,17 @@ include('API/embeddedLoginCheck.php');
 							
 						</fieldset>
 					</form>
-					
+					</div>
 				</div>
 			</div>
 		</div>
 		</div>
-		
-		
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="script/accountUtils.js"></script>
+		<script type="text/javascript" src="script/cookie.js"></script>
+		<script type="text/javascript" src="script/constants.js"></script>
+		<script type="text/javascript" src="script/profileCharacteristics.js"></script>
 	</body>
 </html>

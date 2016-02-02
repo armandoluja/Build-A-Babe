@@ -92,26 +92,68 @@ include('API/embeddedLoginCheck.php');
 							</div>
 							
 							<div class="form-group">
-								<label class="col-sm-2 control-label">Hair Color</label>
+								<label class="col-sm-2 control-label">Favorite Hair Color</label>
 								<div class="col-sm-10">
-									<select name="hairColor" class="form-control" id="selectHairColor">
-										<option name="hairColor" value="0">Black</option>
-										<option name="hairColor" value="1">Brown</option>
-										<option name="hairColor" value="2">Blonde</option>
-										<option name="hairColor" value="3">Red</option>
+									<select name="hairColor_first" class="form-control" id="selectFirstHairColor">
+										<option name="hairColor_first" value="0">Black</option>
+										<option name="hairColor_first" value="1">Light Brown</option>
+										<option name="hairColor_first" value="2">Dark Brown</option>
+										<option name="hairColor_first" value="3">Blonde</option>
+										<option name="hairColor_first" value="4">Red</option>
 									</select>
 								</div>
 							</div>
 							
 							<div class="form-group">
-								<label class="col-sm-2 control-label">Eye Color</label>
+								<label class="col-sm-2 control-label">Second Favorite Hair Color</label>
 								<div class="col-sm-10">
-									<select name="eyeColor" class="form-control" id="selectEyeColor">
-										<option name="eyeColor" value="0">Dark Brown</option>
-										<option name="eyeColor" value="1">Light Brown</option>
-										<option name="eyeColor" value="2">Blue</option>
-										<option name="eyeColor" value="3">Green</option>
-										<option name="eyeColor" value="4">Hazel</option>
+									<select name="hairColor_second" class="form-control" id="selectSecondHairColor">
+										<option name="hairColor_second" value="0">Black</option>
+										<option name="hairColor_second" value="1">Light Brown</option>
+										<option name="hairColor_second" value="2">Dark Brown</option>
+										<option name="hairColor_second" value="3">Blonde</option>
+										<option name="hairColor_second" value="4">Red</option>
+									</select>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Least Favorite Hair Color</label>
+								<div class="col-sm-10">
+									<select name="hairColor_least" class="form-control" id="selectLeastHairColor">
+										<option name="hairColor_least" value="0">Black</option>
+										<option name="hairColor_least" value="1">Light Brown</option>
+										<option name="hairColor_least" value="2">Dark Brown</option>
+										<option name="hairColor_least" value="3">Blonde</option>
+										<option name="hairColor_least" value="4">Red</option>
+									</select>
+								</div>
+							</div>
+							
+							
+							
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Favorite Eye Color</label>
+								<div class="col-sm-10">
+									<select name="eyeColor_1" class="form-control" id="selectEyeColor">
+										<option name="eyeColor_1" value="0">Dark Brown</option>
+										<option name="eyeColor_1" value="1">Light Brown</option>
+										<option name="eyeColor_1" value="2">Blue</option>
+										<option name="eyeColor_1" value="3">Green</option>
+										<option name="eyeColor_1" value="4">Hazel</option>
+									</select>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Second Favorite Eye Color</label>
+								<div class="col-sm-10">
+									<select name="eyeColor_2" class="form-control" id="selectEyeColor">
+										<option name="eyeColor_2" value="0">Dark Brown</option>
+										<option name="eyeColor_2" value="1">Light Brown</option>
+										<option name="eyeColor_2" value="2">Blue</option>
+										<option name="eyeColor_2" value="3">Green</option>
+										<option name="eyeColor_2" value="4">Hazel</option>
 									</select>
 								</div>
 							</div>
@@ -182,6 +224,14 @@ include('API/embeddedLoginCheck.php');
 												</label>
 											</div>
 										</div>
+										<div class="col-sm-2">
+											<div class="radio">
+												<label>
+													<input type="radio" name="skinTone" value="10">
+													<div class="skinColorOption" id="skin6">No Preference</div>
+												</label>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -201,10 +251,10 @@ include('API/embeddedLoginCheck.php');
 							
 							<div class="form-group">
 								<div class="col-sm-10 col-sm-offset-2">
-									<button type="reset" class="btn btn-default">
+									<button id="preference_cancel_btn" type="button" class="btn btn-default">
 										Cancel
 									</button>
-									<button type="submit" class="btn btn-primary">
+									<button id="preference_save_btn" type="button" class="btn btn-primary">
 										Save
 									</button>
 								</div>
