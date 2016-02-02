@@ -12,12 +12,12 @@ $(window).load(function(){
 
 function signout(){
 	var sessionCookie = getCookie(cookieName);
-	var userID = getCookie(userIdCookie);
+	var userId = getCookie(userIdCookie);
 	$.ajax({
 		type:"POST",
 		url: logoutUrl,
 		data:{
-			"userID":userID,
+			"userId":userId,
 			"session":sessionCookie
 		}
 	}).always(function(returnData){
@@ -26,11 +26,8 @@ function signout(){
 		deleteCookie(userIdCookie);
 		setCookie(cookieName, "");
 		deleteCookie(cookieName);
-		
-		alert("logging out " + returnData);
 		window.location.href = loginURL;
 	});
-	window.location.href = loginURL;
 }
 
 function showMinAge(newValue) {
