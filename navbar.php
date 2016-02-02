@@ -23,8 +23,7 @@
 
 				<ul class="nav navbar-nav navbar-right">
 					<li>
-						<a id="signout_btn">Sign out</a>
-						
+						<a id="signout_btn" href="#">Sign out</a>
 					</li>
 					<li>
 						<a href="https://wrapbootstrap.com/?ref=bsw" target="_blank">My Profile</a>
