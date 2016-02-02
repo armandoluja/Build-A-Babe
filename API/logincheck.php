@@ -10,7 +10,7 @@ if(!isset($_POST['userId']) || !isset($_POST['session'])){
 $userId = $_POST['userId'];
 $session = $_POST['session'];
 
-$q1 = $db -> prepare('Select username from login where id = ? AND session_cookie = ?');
+$q1 = $db -> prepare('Select username from login where id = ? AND session_cookie = ? AND session_cookie IS NOT NULL');
 $q1 -> execute(array($userId, $session));
 	
 if($q1 -> rowCount() < 1){
