@@ -13,6 +13,7 @@ include('API/embeddedLoginCheck.php');
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="script/accountUtils.js"></script>
 		<script type="text/javascript" src="script/cookie.js"></script>
+		<script type="text/javascript" src="script/constants.js"></script>
 	</head>
 	
 	<body>
