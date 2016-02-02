@@ -9,7 +9,6 @@ try{
 	$db = new PDO("mysql:host=localhost;dbname=buildababe", "root", "");
 	} catch(exception $e){
 		echo "Failed to connect to server, please try again.";
-		header("Location: ./");
 		exit;
 	}
 }
