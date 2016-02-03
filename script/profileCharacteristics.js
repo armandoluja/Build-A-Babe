@@ -109,7 +109,7 @@ function save() {
 	"\n height:"+height+
 	"\n hairColor:"+hairColor+
 	"\n eyeColor:"+eyeColor+
-	"\n bodyType"+bodyType+
+	"\n bodyType:"+bodyType+
 	"\n skinTone:"+skinTone+
 	"\n maxSearchDist:"+maxSearchDistance);
 	
@@ -130,10 +130,14 @@ function save() {
 			"eyeColor":eyeColor,
 			"bodyType":bodyType,
 			"skinTone":skinTone,
-			"maxSearchDist":maxSearchDist
+			"maxSearchDist":maxSearchDistance
 		}
 	}).always(function(returnData){
-		
+		var json = JSON.parse(returnData);
+		if(json.error){
+			alert(json.err_message);
+		}
+		alert(json.error);
 	});
 }
 
