@@ -1,8 +1,8 @@
 <?php
 include ('connection.php');
-if (isset($_COOKIE['session']) && isset($_COOKIE['userId'])) {
-	$session = $_COOKIE['session'];
-	$userId = $_COOKIE['userId'];
+if (isset($_POST['session']) && isset($_POST['userId'])) {
+	$session = $_POST['session'];
+	$userId = $_POST['userId'];
 
 	if (!isset($_POST['fname']) || !isset($_POST['lname']) 
 	|| !isset($_POST['birthdate']) || !isset($_POST['bio']) 
@@ -27,7 +27,9 @@ if (isset($_COOKIE['session']) && isset($_COOKIE['userId'])) {
 	$skinTone = $_POST['skinTone'];
 	$maxSearchDist = $_POST['maxSearchDist'];
 
-	// sanitize varchar
+	// sanitize strings
+	$session = filter_var($session, FILTER_SANITIZE_STRING);
+	$userId = filter_var($userId, FILTER_SANITIZE_STRING);
 	$fName = filter_var($fName, FILTER_SANITIZE_STRING);
 	$lName = filter_var($lName, FILTER_SANITIZE_STRING);
 	$bio = filter_var($bio, FILTER_SANITIZE_STRING);
@@ -65,7 +67,7 @@ if (isset($_COOKIE['session']) && isset($_COOKIE['userId'])) {
 	}
 	$q1->closeCursor();
 
-	//Check if user preferences have been set
+	//Check if user attributes have been set
 	$isSet = $db -> prepare("Call isUserAttrSet(:userId)");
 	$isSet -> bindValue(':userId', $userId);
 	$isSet -> execute();

@@ -62,6 +62,9 @@ $(window).load(function() {
 			save();
 		}
 	});
+	
+	
+	
 });
 
 /**
@@ -116,10 +119,14 @@ function save() {
 	/*
 	 * Make call to server
 	 */
+	var sessionCookie = getCookie(cookieName);
+	var userId = getCookie(userIdCookie);
 	$.ajax({
 		type: "POST",
 		url: setProfileCharacteristicsUrl,
 		data:{
+			"session":sessionCookie,
+			"userId":userId,
 			"fname":fname,
 			"lname":lname,
 			"birthdate":birthdate,
