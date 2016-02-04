@@ -10,7 +10,7 @@ if (isset($_COOKIE['session']) && isset($_COOKIE['userId'])) {
 	|| !isset($_POST['hairColor']) || !isset($_POST['eyeColor']) 
 	|| !isset($_POST['bodyType']) || !isset($_POST['skinTone']) 
 	|| !isset($_POST['maxSearchDist'])) {
-		echo '{"error": true, "err_pos": 1}';
+		// echo '{"error": true, "err_pos": 1}';
 		exit ;
 	}
 	// varchar
@@ -28,15 +28,15 @@ if (isset($_COOKIE['session']) && isset($_COOKIE['userId'])) {
 	$maxSearchDist = $_POST['maxSearchDist'];
 
 	// sanitize varchar
-	// $fName = filter_var($fName, FILTER_SANITIZE_STRING);
-	// $lName = filter_var($lName, FILTER_SANITIZE_STRING);
-	// $bio = filter_var($bio, FILTER_SANITIZE_STRING);
-	// $gender = filter_var($gender, FILTER_SANITIZE_STRING);
-	// $birthdate = filter_var($birthdate, FILTER_SANITIZE_STRING);
-	// if($fName == "" || $lName == "" || $birthdate == "" || $gender == ""){
+	$fName = filter_var($fName, FILTER_SANITIZE_STRING);
+	$lName = filter_var($lName, FILTER_SANITIZE_STRING);
+	$bio = filter_var($bio, FILTER_SANITIZE_STRING);
+	$gender = filter_var($gender, FILTER_SANITIZE_STRING);
+	$birthdate = filter_var($birthdate, FILTER_SANITIZE_STRING);
+	if($fName == "" || $lName == "" || $birthdate == "" || $gender == ""){
 		// echo '{"error": true, "err_pos": 2}';
-		// exit;//required
-	// }
+		exit;//required
+	}
 	
 	// sanitize int's, value of 0 is valid (first filter)
 	if ((filter_var($height, FILTER_VALIDATE_INT) === 0 || !filter_var($height, FILTER_VALIDATE_INT) === false)
@@ -48,6 +48,7 @@ if (isset($_COOKIE['session']) && isset($_COOKIE['userId'])) {
 		// valid
 	} else {
 		// not valid
+		// echo '{"error": true, "err_pos": 3}';
 		exit;
 	}
 
@@ -59,17 +60,20 @@ if (isset($_COOKIE['session']) && isset($_COOKIE['userId'])) {
 
 	if ($q1 -> rowCount() != 1) {
 		//invalid login
-		echo '{"error": true, "err_pos": 3}';
+		// echo '{"error": true, "err_pos": 4}';
 		exit ;
 	}
+	$q1->closeCursor();
 
 	//Check if user preferences have been set
 	$isSet = $db -> prepare("Call isUserAttrSet(:userId)");
 	$isSet -> bindValue(':userId', $userId);
 	$isSet -> execute();
+	$rowcount = $isSet->rowCount();//get row count then close cursor
+	$isSet ->closeCursor();
 
 	$query;
-	if ($isSet -> rowCount() == 0) {
+	if ($rowcount == 0) {
 		$query = $db -> prepare("Call setAttributes(:userId,:fName,:lName,:gender,:hairColor,:eyeColor,:bodyType,:skinTone,:bio,:birthdate,:maxSearchDist)");
 	} else {
 		$query = $db -> prepare("Call updateAttributes(:userId,:fName,:lName,:gender,:hairColor,:eyeColor,:bodyType,:skinTone,:bio,:birthdate,:maxSearchDist)");
@@ -86,11 +90,13 @@ if (isset($_COOKIE['session']) && isset($_COOKIE['userId'])) {
 	$query -> bindValue(':bio', $bio);
 	$query -> bindValue(':birthdate', $birthdate);
 	$query -> bindValue(':maxSearchDist', $maxSearchDist);
-
-	$query -> execute();
-	echo '{"error": false}';
-
+	
+	$query ->execute();
+	$query ->closeCursor();
+	// echo '{"error": false}';
+	exit;
 } else {
+	// echo '{"error": true, "err_pos": 5}';
 	exit ;
 }
 ?>

@@ -98,20 +98,20 @@ function save() {
 	var maxSearchDistance = maxSearchDistanceInput.val();
 	
 	//For debugging
-	console.log(" fname:"+fname+
-	"\n lname:"+lname+
-	"\n bMonth:"+birthMonth+
-	"\n bDay:"+birthDay+
-	"\n bYear:"+birthYear+
-	"\n birthdate:"+birthdate+
-	"\n bio:"+bio+
-	"\n gender:"+gender+
-	"\n height:"+height+
-	"\n hairColor:"+hairColor+
-	"\n eyeColor:"+eyeColor+
-	"\n bodyType:"+bodyType+
-	"\n skinTone:"+skinTone+
-	"\n maxSearchDist:"+maxSearchDistance);
+	console.log(" fname:"+fname+" type:" + typeof(fname)+
+	"\n lname:"+lname+" type:" + typeof(lname)+
+	"\n bMonth:"+birthMonth+" type:" + typeof(birthMonth)+
+	"\n bDay:"+birthDay+" type:" + typeof(birthDay)+
+	"\n bYear:"+birthYear+" type:" + typeof(birthYear)+
+	"\n birthdate:"+birthdate+" type:" + typeof(birthdate)+
+	"\n bio:"+bio+" type:" + typeof(bio)+
+	"\n gender:"+gender+" type:" + typeof(gender)+
+	"\n height:"+height+" type:" + typeof(height)+
+	"\n hairColor:"+hairColor+" type:" + typeof(hairColor)+
+	"\n eyeColor:"+eyeColor+" type:" + typeof(eyeColor)+
+	"\n bodyType:"+bodyType+" type:" + typeof(bodyType)+
+	"\n skinTone:"+skinTone+" type:" + typeof(skinTone)+
+	"\n maxSearchDist:"+maxSearchDistance+ " type:" + typeof(maxSearchDistance));
 	
 	/*
 	 * Make call to server
@@ -133,11 +133,7 @@ function save() {
 			"maxSearchDist":maxSearchDistance
 		}
 	}).always(function(returnData){
-		var json = JSON.parse(returnData);
-		if(json.error){
-			alert(json.err_message);
-		}
-		alert(json.error);
+		// alert(returnData);
 	});
 }
 
