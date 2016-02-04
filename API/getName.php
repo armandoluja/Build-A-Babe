@@ -22,24 +22,12 @@ if (isset($_POST['session']) && isset($_POST['userId'])) {
 }
 
 // TODO sanitize input
-$userId = $_POST['userId'];
+$userId = $_POST['targetUserId'];
 
-$q1 = $db -> prepare("Call getAllMessages(:userId)");
+$q1 = $db -> prepare("Call getName(:userId)");
 	$q1 -> bindValue(':userId', $userId);
 	$q1 -> execute();
-	$outputJSON = "[";
-	
-	do{
-		$row = $q1 -> fetch(PDO::FETCH_ASSOC);
-		if($row != null){
-			$outputJSON = $outputJSON . json_encode($row) . ",";
-		}
-	}while($row != null);
-	$outputJSON = substr($outputJSON, 0, -1);
+	$row = $q1 -> fetch(PDO::FETCH_ASSOC);
+	echo json_encode($row);
 	$q1->closeCursor();
-	$outputJSON = $outputJSON . "]";
-	echo $outputJSON;
-	/*if($rowC == 0){
-		exit;
-	}*/
 ?>

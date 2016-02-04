@@ -11,3 +11,5 @@ const getProfileCharacteristicsUrl = "API/getProfileCharacteristics.php";
 const setProfileCharacteristicsUrl = "API/setProfileCharacteristics.php";
 const getPreferencesUrl = "API/getPreferences.php";
 const setPreferencesUrl = "API/setPreferences.php";
+const getMessagesUrl = "API/getMessages.php";
+const getNameUrl = "API/getName.php";
