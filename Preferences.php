@@ -18,6 +18,7 @@ include('API/embeddedLoginCheck.php');
 	</head>
 	
 	<body>
+		<div class="container">
 		<?php
 		include("navbar.php");
 		?>
@@ -29,7 +30,6 @@ include('API/embeddedLoginCheck.php');
 		</br>
 		</br>
 		</div>
-		<div class="container">
 			<div class="row">
 				
 			</div>

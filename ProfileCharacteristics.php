@@ -11,6 +11,7 @@ include ('API/embeddedLoginCheck.php');
 		<link rel="stylesheet" href="style/myfont.css" type="text/css">
 	</head>
 	<body>
+		<div class="container">
 		<?php
 		include ("navbar.php");
 		?>
@@ -22,9 +23,6 @@ include ('API/embeddedLoginCheck.php');
 		</br>
 		</br>
 		</div>
-		
-		<div class="container">
-
 			<div class="row">
 			</div>
 			<div class="row">
