@@ -3,6 +3,10 @@ include ('connection.php');
 if (isset($_POST['session']) && isset($_POST['userId'])) {
 	$session = $_POST['session'];
 	$userId = $_POST['userId'];
+	
+	//sanitize
+	$session = filter_var($session, FILTER_SANITIZE_STRING);
+	$userId = filter_var($userId, FILTER_SANITIZE_STRING);
 
 	//Check that request is from a valid login
 	$q1 = $db -> prepare("Call loginCheck(:cookie, :userId)");
@@ -23,16 +27,27 @@ if (isset($_POST['session']) && isset($_POST['userId'])) {
 	$isSet -> execute();
 	$rowcount = $isSet->rowCount();//get row count then close cursor
 	$isSet ->closeCursor();
-
 	$query;
 	if ($rowcount == 0) {
-		// this user does not have attributes set
+		// this user does not have attributes set return empty json
+		exit;
 	} else {
 		$query = $db -> prepare("Call getAttributes(:userId)");
 	}
+	
+	// get the user's attributes
 	$query ->bindValue(':userId',$userId);
 	$query ->execute();
+	//check that there is only one result, since a user shouldn't have more than 1 profile
+	//characteristics entries
+	$rowCount = $query->rowCount();
+	if($rowCount != 1){
+		exit;
+	}
+	$profileCharacteristics = $query->fetch();
 	$query ->closeCursor();
+	
+	echo json_encode($profileCharacteristics);
 	// echo '{"error": false}';
 	exit;
 } else {

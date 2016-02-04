@@ -25,7 +25,8 @@ var maxSearchDistanceInput;
  */
 var fnameValid = false;
 var lnameValid = false;
-var bioValid = true;//bio can be empty
+var bioValid = true;
+//bio can be empty
 
 /**
  * Begin
@@ -58,18 +59,62 @@ $(window).load(function() {
 	// save button
 	$("#save_prof_chars").click(function() {
 		//check if valid
-		if(fnameValid && lnameValid && bioValid){
+		if (fnameValid && lnameValid && bioValid) {
 			save();
 		}
 	});
-	
-	
-	
+
+	getProfileCharacteristics();
+
 });
 
 /**
  * Functions
  */
+
+function getProfileCharacteristics() {
+	var sessionCookie = getCookie(cookieName);
+	var userId = getCookie(userIdCookie);
+	$.ajax({
+		type : "POST",
+		url : getProfileCharacteristicsUrl,
+		data : {
+			"userId" : userId,
+			"session" : sessionCookie
+		}
+	}).always(function(returnData) {
+		if(returnData != null){
+			console.log(returnData);
+			var json = JSON.parse(returnData);
+			setInputValues(json);
+		}
+	});
+}
+
+function setInputValues(json){
+	fnameInput.val(json.fName);
+	lnameInput.val(json.lName);
+	var date = json.birthdate.split("-");
+	birthYearInput.val(date[0]);
+	birthMonthInput.val(date[1]);
+	birthDayInput.val(date[2]);
+	bioInput.val(unescape(json.bio));
+	if(json.gender == "M"){
+		radioMale.prop('checked', true);
+	}else{
+		radioFemale.prop('checked', true);
+	}
+	
+	// check if male or female is check since they're just 2 radio
+	heightInput.val(json.height);
+	hairColorInput.val(json.hairColor);
+	eyeColorInput.val(json.eyeColor);
+	bodyTypeInput.val(json.bodyType);
+	// radio buttons are in an array
+	var index = json.skinTone;//get the index 
+	$(skinToneRadioArray[index]).prop('checked',true);
+	maxSearchDistanceInput.val(json.maxSearchDist);
+}
 
 /*
  * Should only be called if input is valid
@@ -82,69 +127,59 @@ function save() {
 	var birthYear = birthYearInput.val();
 	// must use YYYY-MM-DD format
 	var birthdate = birthYear + "-" + birthMonth + "-" + birthDay;
-	var bio = bioInput.val();
+	var bio = escape(bioInput.val());
 	var gender;
 	console.log(radioMale.is(':checked'));
-	if(radioMale.is(':checked')){gender = radioMale.val();}
-	else{gender = radioFemale.val();}
+	if (radioMale.is(':checked')) {
+		gender = radioMale.val();
+	} else {
+		gender = radioFemale.val();
+	}
 	var height = heightInput.val();
 	var hairColor = hairColorInput.val();
 	var eyeColor = eyeColorInput.val();
 	var bodyType = bodyTypeInput.val();
-	
+
 	var skinTone;
 	for (var i = 0; i < skinToneRadioArray.length; i++) {
-		if(skinToneRadioArray[i].checked){
+		if (skinToneRadioArray[i].checked) {
 			skinTone = $(skinToneRadioArray[i]).val();
-			break;}}
-	
+			break;
+		}
+	}
+
 	var maxSearchDistance = maxSearchDistanceInput.val();
-	
+
 	//For debugging
-	console.log(" fname:"+fname+" type:" + typeof(fname)+
-	"\n lname:"+lname+" type:" + typeof(lname)+
-	"\n bMonth:"+birthMonth+" type:" + typeof(birthMonth)+
-	"\n bDay:"+birthDay+" type:" + typeof(birthDay)+
-	"\n bYear:"+birthYear+" type:" + typeof(birthYear)+
-	"\n birthdate:"+birthdate+" type:" + typeof(birthdate)+
-	"\n bio:"+bio+" type:" + typeof(bio)+
-	"\n gender:"+gender+" type:" + typeof(gender)+
-	"\n height:"+height+" type:" + typeof(height)+
-	"\n hairColor:"+hairColor+" type:" + typeof(hairColor)+
-	"\n eyeColor:"+eyeColor+" type:" + typeof(eyeColor)+
-	"\n bodyType:"+bodyType+" type:" + typeof(bodyType)+
-	"\n skinTone:"+skinTone+" type:" + typeof(skinTone)+
-	"\n maxSearchDist:"+maxSearchDistance+ " type:" + typeof(maxSearchDistance));
-	
+	console.log(" fname:" + fname + " type:" + typeof (fname) + "\n lname:" + lname + " type:" + typeof (lname) + "\n bMonth:" + birthMonth + " type:" + typeof (birthMonth) + "\n bDay:" + birthDay + " type:" + typeof (birthDay) + "\n bYear:" + birthYear + " type:" + typeof (birthYear) + "\n birthdate:" + birthdate + " type:" + typeof (birthdate) + "\n bio:" + bio + " type:" + typeof (bio) + "\n gender:" + gender + " type:" + typeof (gender) + "\n height:" + height + " type:" + typeof (height) + "\n hairColor:" + hairColor + " type:" + typeof (hairColor) + "\n eyeColor:" + eyeColor + " type:" + typeof (eyeColor) + "\n bodyType:" + bodyType + " type:" + typeof (bodyType) + "\n skinTone:" + skinTone + " type:" + typeof (skinTone) + "\n maxSearchDist:" + maxSearchDistance + " type:" + typeof (maxSearchDistance));
+
 	/*
 	 * Make call to server
 	 */
 	var sessionCookie = getCookie(cookieName);
 	var userId = getCookie(userIdCookie);
 	$.ajax({
-		type: "POST",
-		url: setProfileCharacteristicsUrl,
-		data:{
-			"session":sessionCookie,
-			"userId":userId,
-			"fname":fname,
-			"lname":lname,
-			"birthdate":birthdate,
-			"bio":bio,
-			"gender":gender,
-			"height":height,
-			"hairColor":hairColor,
-			"eyeColor":eyeColor,
-			"bodyType":bodyType,
-			"skinTone":skinTone,
-			"maxSearchDist":maxSearchDistance
+		type : "POST",
+		url : setProfileCharacteristicsUrl,
+		data : {
+			"session" : sessionCookie,
+			"userId" : userId,
+			"fname" : fname,
+			"lname" : lname,
+			"birthdate" : birthdate,
+			"bio" : bio,
+			"gender" : gender,
+			"height" : height,
+			"hairColor" : hairColor,
+			"eyeColor" : eyeColor,
+			"bodyType" : bodyType,
+			"skinTone" : skinTone,
+			"maxSearchDist" : maxSearchDistance
 		}
-	}).always(function(returnData){
+	}).always(function(returnData) {
 		// alert(returnData);
 	});
 }
-
-
 
 /**
  * Modules; ignore everything below, I'm using angular for front end form validation
@@ -162,9 +197,9 @@ app.directive('validName', function() {
 			function myValidation(value) {
 				if (containsOnlyLetters(value)) {
 					mCtrl.$setValidity('lettersOnly', true);
-					if(attr.id == 'inputFirstName'){
+					if (attr.id == 'inputFirstName') {
 						fnameValid = true;
-					}else{
+					} else {
 						lnameValid = true;
 					}
 					// console.log(attr.id);
@@ -174,14 +209,16 @@ app.directive('validName', function() {
 					// console.log(mCtrl);
 				} else {
 					mCtrl.$setValidity('lettersOnly', false);
-					if(attr.id == 'inputFirstName'){
+					if (attr.id == 'inputFirstName') {
 						fnameValid = false;
-					}else{
+					} else {
 						lnameValid = false;
 					}
 				}
 				return value;
 			}
+
+
 			mCtrl.$parsers.push(myValidation);
 		}
 	};
@@ -192,9 +229,9 @@ app.directive('validBio', function() {
 		require : 'ngModel',
 		link : function(scope, element, attr, mCtrl) {
 			function myValidation(value) {
-				if (value.length <= 240) {
+				if (escape(value).length <= 240) {
 					mCtrl.$setValidity('lessThan240Chars', true);
-					if(attr.id == 'textArea'){
+					if (attr.id == 'textArea') {
 						bioValid = true;
 					}
 					// console.log(scope);
@@ -203,7 +240,7 @@ app.directive('validBio', function() {
 					// console.log(mCtrl);
 				} else {
 					mCtrl.$setValidity('lessThan240Chars', false);
-					if(attr.id == 'textArea'){
+					if (attr.id == 'textArea') {
 						bioValid = false;
 					}
 				}

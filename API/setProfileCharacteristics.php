@@ -75,9 +75,9 @@ if (isset($_POST['session']) && isset($_POST['userId'])) {
 
 	$query;
 	if ($rowcount == 0) {
-		$query = $db -> prepare("Call setAttributes(:userId,:fName,:lName,:gender,:hairColor,:eyeColor,:bodyType,:skinTone,:bio,:birthdate,:maxSearchDist)");
+		$query = $db -> prepare("Call setAttributes(:userId,:fName,:lName,:gender,:hairColor,:eyeColor,:bodyType,:skinTone,:bio,:birthdate,:maxSearchDist,:height)");
 	} else {
-		$query = $db -> prepare("Call updateAttributes(:userId,:fName,:lName,:gender,:hairColor,:eyeColor,:bodyType,:skinTone,:bio,:birthdate,:maxSearchDist)");
+		$query = $db -> prepare("Call updateAttributes(:userId,:fName,:lName,:gender,:hairColor,:eyeColor,:bodyType,:skinTone,:bio,:birthdate,:maxSearchDist,:height)");
 	}
 
 	$query -> bindValue(':userId', $userId);
@@ -91,6 +91,7 @@ if (isset($_POST['session']) && isset($_POST['userId'])) {
 	$query -> bindValue(':bio', $bio);
 	$query -> bindValue(':birthdate', $birthdate);
 	$query -> bindValue(':maxSearchDist', $maxSearchDist);
+	$query -> bindValue(':height',$height);
 	
 	$query ->execute();
 	$query ->closeCursor();

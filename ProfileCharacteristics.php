@@ -60,8 +60,12 @@ include ('API/embeddedLoginCheck.php');
 									<select name="bmonth" class="form-control" id="selectBirthMonth">
 										<?php 
 											for($i = 1 ; $i <= 12 ; $i++){
+												$j = $i;
+												if($i < 10){
+													$j = "0".$i;
+												}
 												?>
-												<option name="bmonth" value="<?= $i ?>"><?= $i ?></option>
+												<option name="bmonth" value="<?= $j ?>"><?= $i ?></option>
 												<?php
 												}
 										?>
@@ -72,8 +76,12 @@ include ('API/embeddedLoginCheck.php');
 									<select name="bday" class="form-control" id="selectBirthDay">
 										<?php 
 											for($i = 1 ; $i <= 31 ; $i++){
+												$j = $i;
+												if($i < 10){
+													$j = "0".$i;
+												}
 												?>
-												<option name = "bday" value="<?= $i ?>"><?= $i ?></option>
+												<option name = "bday" value="<?= $j ?>"><?= $i ?></option>
 												<?php
 												}
 										?>
