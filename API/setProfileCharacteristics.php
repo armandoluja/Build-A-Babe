@@ -59,14 +59,13 @@ if (isset($_POST['session']) && isset($_POST['userId'])) {
 	$q1 -> bindValue(':cookie', $session);
 	$q1 -> bindValue(':userId', $userId);
 	$q1 -> execute();
-
-	if ($q1 -> rowCount() != 1) {
+	$rowC = $q1 -> rowCount();
+	$q1->closeCursor();
+	if ($rowC != 1) {
 		//invalid login
 		// echo '{"error": true, "err_pos": 4}';
 		exit ;
 	}
-	$q1->closeCursor();
-
 	//Check if user attributes have been set
 	$isSet = $db -> prepare("Call isUserAttrSet(:userId)");
 	$isSet -> bindValue(':userId', $userId);
