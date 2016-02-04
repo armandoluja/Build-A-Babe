@@ -53,7 +53,7 @@ $(window).load(function(){
 	});
 	// save button
 	$("#save_preference_btn").click(function(){
-		
+		save();
 	});
 });
 

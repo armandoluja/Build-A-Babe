@@ -127,6 +127,9 @@ function setInputValues(json) {
 	maxSearchDistanceInput.val(json.maxSearchDist);
 	//update the max distance display
 	showMaxDist(json.maxSearchDist);
+	fnameValid = true;
+	lnameValid = true;
+	bioValid = true;
 }
 
 /*
@@ -209,7 +212,7 @@ app.directive('validName', function() {
 		require : 'ngModel',
 		link : function(scope, element, attr, mCtrl) {
 			function myValidation(value) {
-				var text = $("#"+attr.id).val();
+				var text = $("#" + attr.id).val();
 				if (containsOnlyLetters(text) && text.length > 0) {
 					mCtrl.$setValidity('lettersOnly', true);
 					if (attr.id == 'inputFirstName') {
