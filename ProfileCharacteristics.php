@@ -41,14 +41,14 @@ include ('API/embeddedLoginCheck.php');
 										<div class="col-sm-5">
 											<input id="inputFirstName"  name="firstName"  ng-model="firstName" 
 											type="text" placeholder="First" maxlength="16"  class="form-control" 
-											valid-name required></input>
+											valid-name></input>
 											<span class="help-block" ng-show="profileCharForm.firstName.$touched && profileCharForm.firstName.$invalid">Invalid first name.</span>
 										</div>
 										<span class="help-block"></span>
 										<div class="col-sm-5">
 											<input id="inputLastName" name="lastName" ng-model="lastName" 
 											type="text"  placeholder="Last" maxlength="16" class="form-control" 
-											valid-name required></input>
+											valid-name></input>
 											<span class="help-block" ng-show="profileCharForm.lastName.$touched && profileCharForm.lastName.$invalid">Invalid last name.</span>
 										</div>
 								
@@ -241,14 +241,9 @@ include ('API/embeddedLoginCheck.php');
 							<div class="form-group">
 								<label class="col-sm-2 control-label">Maximum Search Distance (mi)</label>
 								<div class="col-sm-10">
-									<input id="maxDistInput" type="range" max="100" min="1" step="1" value="10" onmousemove="showValue(this.value)"/>
+									<input id="maxDistInput" type="range" max="100" min="1" step="1" value="10" onmousemove="showMaxDist(this.value)"/>
 									<span id="maxDistRange">10</span>
 								</div> 
-								<script type="text/javascript">
-									function showValue(newValue) {
-										document.getElementById("maxDistRange").innerHTML = newValue;
-									}
-								</script>
 							</div>
 							
 							<div class="form-group">

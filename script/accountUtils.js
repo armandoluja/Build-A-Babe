@@ -1,23 +1,23 @@
 "use-strict";
 
-$(window).load(function(){
-	$("#signout_btn").click(function(){
+$(window).load(function() {
+	$("#signout_btn").click(function() {
 		signout();
 	});
 });
 
-function signout(){
+function signout() {
 	var sessionCookie = getCookie(cookieName);
 	var userId = getCookie(userIdCookie);
 	$.ajax({
-		type:"POST",
-		url: logoutUrl,
-		data:{
-			"userId":userId,
-			"session":sessionCookie
+		type : "POST",
+		url : logoutUrl,
+		data : {
+			"userId" : userId,
+			"session" : sessionCookie
 		}
-	}).always(function(returnData){
-	
+	}).always(function(returnData) {
+
 		setCookie(userIdCookie, "");
 		deleteCookie(userIdCookie);
 		setCookie(cookieName, "");
@@ -73,12 +73,16 @@ function showMaxHeight(newValue) {
 	document.getElementById("maxHeight").innerHTML = val;
 }
 
-function calculateHeightDisplayString(inches){
-	var feet = parseInt(inches / 12);
-	var inches = inches % 12;
-	return feet+ "' " + inches + "\"";
+function showMaxDist(newValue) {
+	document.getElementById("maxDistRange").innerHTML = newValue;
 }
 
-function containsOnlyLetters(string){
+function calculateHeightDisplayString(inches) {
+	var feet = parseInt(inches / 12);
+	var inches = inches % 12;
+	return feet + "' " + inches + "\"";
+}
+
+function containsOnlyLetters(string) {
 	return /^[a-z]+$/i.test(string);
 }

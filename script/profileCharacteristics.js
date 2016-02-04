@@ -27,6 +27,7 @@ var fnameValid = false;
 var lnameValid = false;
 var bioValid = true;
 //bio can be empty
+var app;
 
 /**
  * Begin
@@ -65,7 +66,6 @@ $(window).load(function() {
 	});
 
 	getProfileCharacteristics();
-
 });
 
 /**
@@ -83,51 +83,65 @@ function getProfileCharacteristics() {
 			"session" : sessionCookie
 		}
 	}).always(function(returnData) {
-		if(returnData != null){
+		if (returnData != "") {
 			console.log(returnData);
 			var json = JSON.parse(returnData);
 			setInputValues(json);
+		} else {
+			// fnameInput.css('background-color',"pink");
+			fnameInput.addClass('ng-invalid');
+			fnameInput.removeClass('ng-valid');
+			lnameInput.addClass('ng-invalid');
+			lnameInput.removeClass('ng-valid');
 		}
 	});
 }
 
-function setInputValues(json){
+function setInputValues(json) {
 	fnameInput.val(json.fName);
 	lnameInput.val(json.lName);
+
 	var date = json.birthdate.split("-");
 	birthYearInput.val(date[0]);
 	birthMonthInput.val(date[1]);
 	birthDayInput.val(date[2]);
 	bioInput.val(unescape(json.bio));
-	if(json.gender == "M"){
+
+	if (json.gender == "M") {
 		radioMale.prop('checked', true);
-	}else{
+	} else {
 		radioFemale.prop('checked', true);
 	}
-	
+
 	// check if male or female is check since they're just 2 radio
 	heightInput.val(json.height);
+	//update the height display
+	showHeight(json.height);
 	hairColorInput.val(json.hairColor);
 	eyeColorInput.val(json.eyeColor);
 	bodyTypeInput.val(json.bodyType);
 	// radio buttons are in an array
-	var index = json.skinTone;//get the index 
-	$(skinToneRadioArray[index]).prop('checked',true);
+	var index = json.skinTone;
+	//get the index
+	$(skinToneRadioArray[index]).prop('checked', true);
 	maxSearchDistanceInput.val(json.maxSearchDist);
+	//update the max distance display
+	showMaxDist(json.maxSearchDist);
 }
 
 /*
  * Should only be called if input is valid
  */
 function save() {
-	var fname = fnameInput.val();
-	var lname = lnameInput.val();
+	var fname = fnameInput.val().trim();
+	var lname = lnameInput.val().trim();
+
 	var birthMonth = birthMonthInput.val();
 	var birthDay = birthDayInput.val();
 	var birthYear = birthYearInput.val();
 	// must use YYYY-MM-DD format
 	var birthdate = birthYear + "-" + birthMonth + "-" + birthDay;
-	var bio = escape(bioInput.val());
+	var bio = escape(bioInput.val().trim());
 	var gender;
 	console.log(radioMale.is(':checked'));
 	if (radioMale.is(':checked')) {
@@ -184,7 +198,7 @@ function save() {
 /**
  * Modules; ignore everything below, I'm using angular for front end form validation
  */
-var app = angular.module('appForm', []);
+app = angular.module('appForm', []);
 
 app.controller('ctrlName', function($scope) {
 
@@ -195,18 +209,16 @@ app.directive('validName', function() {
 		require : 'ngModel',
 		link : function(scope, element, attr, mCtrl) {
 			function myValidation(value) {
-				if (containsOnlyLetters(value)) {
+				var text = $("#"+attr.id).val();
+				if (containsOnlyLetters(text) && text.length > 0) {
 					mCtrl.$setValidity('lettersOnly', true);
 					if (attr.id == 'inputFirstName') {
 						fnameValid = true;
+						validateDOM(fnameInput);
 					} else {
 						lnameValid = true;
+						validateDOM(lnameInput);
 					}
-					// console.log(attr.id);
-					// console.log(scope);
-					// console.log(element);
-					// console.log(attr);
-					// console.log(mCtrl);
 				} else {
 					mCtrl.$setValidity('lettersOnly', false);
 					if (attr.id == 'inputFirstName') {
@@ -224,6 +236,15 @@ app.directive('validName', function() {
 	};
 });
 
+function validateDOM(jQueryObject) {
+	while (jQueryObject.hasClass('ng-invalid')) {
+		jQueryObject.removeClass('ng-invalid');
+	}
+	if (!jQueryObject.hasClass('ng-valid')) {
+		jQueryObject.addClass('ng-valid');
+	}
+}
+
 app.directive('validBio', function() {
 	return {
 		require : 'ngModel',
@@ -234,10 +255,6 @@ app.directive('validBio', function() {
 					if (attr.id == 'textArea') {
 						bioValid = true;
 					}
-					// console.log(scope);
-					// console.log(element);
-					// console.log(attr);
-					// console.log(mCtrl);
 				} else {
 					mCtrl.$setValidity('lessThan240Chars', false);
 					if (attr.id == 'textArea') {
