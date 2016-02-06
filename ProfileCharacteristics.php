@@ -19,11 +19,8 @@ include ('API/embeddedLoginCheck.php');
 		</br>
 		</br>
 		</div>
-		<div class="row">
-		</br>
-		</br>
-		</div>
-			<div class="row">
+			<div class="page-header">
+				<h1 id="typography">My Attributes</h1>
 			</div>
 			<div class="row">
 			<div class = "col-sm-8 col-sm-offset-2">
