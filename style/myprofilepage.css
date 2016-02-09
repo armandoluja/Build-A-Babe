@@ -1,0 +1,8 @@
+.hoverable:hover{
+	border-color: #b6dbfc;
+	border-width: 0.25em;
+}
+
+.hoverable{
+	border-width: 0.25em;
+}

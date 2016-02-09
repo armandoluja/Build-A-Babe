@@ -9,6 +9,7 @@ include('API/embeddedLoginCheck.php');
 
 		<link rel="stylesheet" type="text/css" href="https://bootswatch.com/cerulean/bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" href="style/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="style/myprofilepage.css">
 		<link rel="stylesheet" href="style/viewprofilepage.css" type="text/css">
 		<link rel="stylesheet" href="style/myfont.css" type="text/css">
 		<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
@@ -16,6 +17,8 @@ include('API/embeddedLoginCheck.php');
 		<script type="text/javascript" src="script/accountUtils.js"></script>
 		<script type="text/javascript" src="script/cookie.js"></script>
 		<script type="text/javascript" src="script/constants.js"></script>
+		<script type="text/javascript" src="script/myProfilePage.js"></script>
+		
 	</head>
 	<body>
 		
@@ -39,9 +42,9 @@ include('API/embeddedLoginCheck.php');
 
 			<div class="row">
 				<div class="col-sm-4">
-					<div class="panel panel-default">
+					<div id="browse_users_panel" class="panel panel-default hoverable">
 						<div class="panel-heading">
-							<b>Find users</b>
+							<b>Browse other users</b>
 						</div>
 						<div class="panel-body">
 							<div class="col-xs-4">
@@ -72,7 +75,7 @@ include('API/embeddedLoginCheck.php');
 					</div>
 				</div>
 				<div class="col-sm-4">
-					<div class="panel panel-default">
+					<div id="view_stared_users_panel" class="panel panel-default  hoverable">
 						<div class="panel-heading">
 							<b>View starred users</b>
 						</div>
@@ -105,7 +108,7 @@ include('API/embeddedLoginCheck.php');
 					</div>
 				</div>
 				<div class="col-sm-4">
-					<div class="panel panel-default">
+					<div id="recently_viewed_panel" class="panel panel-default  hoverable">
 						<div class="panel-heading">
 							<b>Recently viewed users</b>
 						</div>
@@ -141,7 +144,7 @@ include('API/embeddedLoginCheck.php');
 
 			<div class="row">
 				<div class="col-sm-4">
-					<div class="panel panel-default">
+					<div id="profile_pic_panel" class="panel panel-default  hoverable">
 						<div class="panel-heading">
 							<b>Change profile picture</b>
 						</div>
@@ -155,7 +158,7 @@ include('API/embeddedLoginCheck.php');
 					</div>
 				</div>
 				<div class="col-sm-4">
-					<div class="panel panel-default">
+					<div id="gallery_panel" class="panel panel-default  hoverable">
 						<div class="panel-heading">
 							<b>Manage gallery</b>
 						</div>
@@ -188,7 +191,7 @@ include('API/embeddedLoginCheck.php');
 					</div>
 				</div>
 				<div class="col-sm-4">
-					<div class="panel panel-default">
+					<div id="preferences_panel" class="panel panel-default  hoverable">
 						<div class="panel-heading">
 							<b>Manage my preferences</b>
 						</div>
@@ -213,7 +216,7 @@ include('API/embeddedLoginCheck.php');
 
 			<div class="row">
 				<div class="col-sm-4">
-					<div class="panel panel-default">
+					<div id="attributes_panel" class="panel panel-default  hoverable">
 						<div class="panel-heading">
 							<b>Manage my attributes</b>
 						</div>
@@ -235,7 +238,7 @@ include('API/embeddedLoginCheck.php');
 					</div>
 				</div>
 				<div class="col-sm-4">
-					<div class="panel panel-default">
+					<div id="chat_panel" class="panel panel-default  hoverable">
 						<div class="panel-heading">
 							<b>View conversations</b>
 						</div>
