@@ -16,9 +16,10 @@ include ('API/embeddedLoginCheck.php');
 		<script type="text/javascript" src="script/accountUtils.js"></script>
 		<script type="text/javascript" src="script/cookie.js"></script>
 		<script type="text/javascript" src="script/constants.js"></script>
+		<script type="text/javascript" src="script/browse.js"></script>
 	</head>
 	<body>
-		<div class="container" >
+		<div class="container">
 
 			<?php
 			include ("navbar.php");
@@ -32,34 +33,8 @@ include ('API/embeddedLoginCheck.php');
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-sm-12">
-					<div class="col-xs-3">
-
-						<div class="well well-sm">
-							<div class="panel-heading">
-								<b>Find users</b>
-							</div>
-							<img class="gallery-image" src="http://imgur.com/cucXLcU.png">
-						</div>
-					</div>
-					<div class="col-xs-3">
-						<div class="well well-sm">
-							<img class="gallery-image" src="http://imgur.com/cucXLcU.png">
-						</div>
-					</div>
-					<div class="col-xs-3">
-						<div class="well well-sm">
-							<img class="gallery-image" src="http://imgur.com/cucXLcU.png">
-						</div>
-					</div>
-					<div class="col-xs-3">
-						<div class="well well-sm">
-							<img class="gallery-image" src="http://imgur.com/cucXLcU.png">
-						</div>
-					</div>
-				</div>
-
+			<div class="row" id="browse_container">
+				
 			</div>
 
 		</div>
