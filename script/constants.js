@@ -14,3 +14,4 @@ const setPreferencesUrl = "API/setPreferences.php";
 const getMessagesUrl = "API/getMessages.php";
 const getNameUrl = "API/getName.php";
 const sendMessageUrl = "API/sendMessage.php";
+const getProfilesURL = "API/getUserProfiles.php";
