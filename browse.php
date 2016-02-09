@@ -25,11 +25,24 @@ include ('API/embeddedLoginCheck.php');
 			include ("navbar.php");
 			?>
 			<div class="row">
-				</br>
-				</br>
-				<div class="col-sm-12">
-					<div class="page-header">
-						<h1 id="typography">Browse</h1>
+				<div id="browse_header_container">
+					</br>
+					</br>
+					<div class="col-sm-12">
+						<div class="page-header">
+							<h1 id="page_header_text">Browse</h1>
+						</div>
+					</div>
+				</div>
+
+				<div id="quick_view_button_container" style="display: none">
+					</br>
+					</br>
+					</br>
+					</br>
+					<div class="btn-group btn-group-justified">
+						<a id="back_to_results_button" href="#" class="btn btn-default">Back to results</a>
+						<a id="view_full_profile_button" href="#" class="btn btn-default">View full profile</a>
 					</div>
 				</div>
 			</div>
@@ -38,6 +51,7 @@ include ('API/embeddedLoginCheck.php');
 			</div>
 
 			<div class="row" id="quick_view_profile_container" style="display: none">
+
 				<div class="col-sm-12">
 					<div class="page-header">
 						<h1 id="full_name"></h1>

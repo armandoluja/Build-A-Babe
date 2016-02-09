@@ -1,6 +1,10 @@
 "use-strict";
 var browseContainer;
 var quickViewProfileContainer;
+
+var browseHeaderContainer;
+var quickViewHeaderContainer;
+
 // the display fields for quick view
 var viewProfileBio;
 var viewProfileFullName;
@@ -8,6 +12,11 @@ var viewProfileImg;
 var viewProfileAge;
 var viewProfileHeight;
 var viewProfileHairColor;
+var pageHeader;
+
+//buttons
+var btnBackToResults;
+var btnViewFullProfile;
 
 var currentIndex;
 var users = [];
@@ -15,14 +24,26 @@ var users = [];
 $(window).load(function() {
 	currentIndex = 0;
 	browseContainer = $("#browse_container");
+	browseHeaderContainer = $("#browse_header_container");
 
 	quickViewProfileContainer = $("#quick_view_profile_container");
+	quickViewHeaderContainer = $("#quick_view_button_container");
 	viewProfileBio = $("#view_profile_bio");
 	viewProfileFullName = $("#full_name");
 	viewProfileImg = $("#view_profile_pic");
 	viewProfileAge = $("#view_profile_age");
 	viewProfileHeight = $("#view_profile_height");
 	viewProfileHairColor = $("#view_profile_hair_color");
+	pageHeader = $("#page_header_text");
+
+	btnBackToResults = $("#back_to_results_button").click(function() {
+		quickViewProfileContainer.css("display", "none");
+		quickViewHeaderContainer.css("display", "none");
+		browseContainer.css("display", "");
+		browseHeaderContainer.css("display", "");
+	});
+	
+	btnViewFullProfile = $("#view_full_profile_button");//TODO: use it
 
 	loadProfiles(currentIndex, currentIndex + 20);
 });
@@ -98,17 +119,19 @@ function createProfileDOM(json, position) {
  * display the quick for for the specified user
  */
 function showQuickViewProfile(positionInUsersArray) {
+	//TODO: set the redirect path for the full profile button
 	var profileJson = users[positionInUsersArray];
-	
+
 	// the display fields for quick view
 	viewProfileBio.html(unescape(profileJson.bio));
 	viewProfileFullName.html(profileJson.fName + " " + profileJson.lName);
 	// viewProfileImg
-	viewProfileAge.html("Age: "+calcAge(profileJson.birthdate));
+	viewProfileAge.html("Age: " + calcAge(profileJson.birthdate));
 	viewProfileHeight.html("Height: " + calculateHeightDisplayString(profileJson.height));
 	viewProfileHairColor.html("Hair color: " + profileJson.hairColor);
-	
-	
-	quickViewProfileContainer.css("display","");
-	browseContainer.css("display","none");
+
+	quickViewProfileContainer.css("display", "");
+	quickViewHeaderContainer.css("display", "");
+	browseContainer.css("display", "none");
+	browseHeaderContainer.css("display", "none");
 }
