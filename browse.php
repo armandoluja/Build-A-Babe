@@ -34,7 +34,52 @@ include ('API/embeddedLoginCheck.php');
 				</div>
 			</div>
 			<div class="row" id="browse_container">
-				
+
+			</div>
+
+			<div class="row" id="quick_view_profile_container" style="display: none">
+				<div class="col-sm-12">
+					<div class="page-header">
+						<h1 id="full_name"></h1>
+					</div>
+				</div>
+
+				<div class="col-sm-4">
+					<div class="well">
+						<img id="view_profile_pic" class="profile-image" src="http://imgur.com/cucXLcU.png"/>
+					</div>
+				</div>
+
+				<div class="col-sm-8">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<b>Bio</b>
+						</div>
+						<div class="panel-body"  id="view_profile_bio"></div>
+					</div>
+				</div>
+
+				<div class="col-sm-8">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<b>Profile Info:</b>
+						</div>
+						<div class="panel-body">
+							<ul class="list-group">
+								<li id="view_profile_age" class="list-group-item">
+									Age: 23
+								</li>
+								<li id="view_profile_height" class="list-group-item">
+									Height: 5'11"
+								</li>
+								<li id="view_profile_hair_color" class="list-group-item">
+									Hair Color: Brown
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
 			</div>
 
 		</div>

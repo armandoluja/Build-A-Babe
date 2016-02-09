@@ -21,7 +21,7 @@ if (isset($_POST['session']) && isset($_POST['userId'])) {
 		exit ;
 	}
 
-	//Check if user attributes have been set
+	//Check if user preferences have been set
 	$isSet = $db -> prepare("Call isUserPrefSet(:userId)");
 	$isSet -> bindValue(':userId', $userId);
 	$isSet -> execute();
@@ -29,17 +29,16 @@ if (isset($_POST['session']) && isset($_POST['userId'])) {
 	$isSet ->closeCursor();
 	$query;
 	if ($rowcount == 0) {
-		// this user does not have attributes set return empty json
+		// this user does not have preferences set return empty json
 		exit;
 	} else {
 		$query = $db -> prepare("Call getPreferences(:userId)");
 	}
 	
-	// get the user's attributes
+	// get the user's preferences
 	$query ->bindValue(':userId',$userId);
 	$query ->execute();
-	//check that there is only one result, since a user shouldn't have more than 1 profile
-	//characteristics entries
+	//check that there is only one result, since a user shouldn't have more than 1 preference
 	$rowCount = $query->rowCount();
 	if($rowCount != 1){
 		exit;

@@ -86,3 +86,9 @@ function calculateHeightDisplayString(inches) {
 function containsOnlyLetters(string) {
 	return /^[a-z]+$/i.test(string);
 }
+
+function calcAge(yyyymmdd) {
+  var dateString = yyyymmdd.split("-");
+  var birthday = +new Date(dateString[0],dateString[1],dateString[2]);
+  return ~~((Date.now() - birthday) / (31557600000));
+}

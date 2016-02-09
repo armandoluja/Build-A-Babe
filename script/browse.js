@@ -1,10 +1,29 @@
 "use-strict";
 var browseContainer;
+var quickViewProfileContainer;
+// the display fields for quick view
+var viewProfileBio;
+var viewProfileFullName;
+var viewProfileImg;
+var viewProfileAge;
+var viewProfileHeight;
+var viewProfileHairColor;
+
 var currentIndex;
+var users = [];
 
 $(window).load(function() {
 	currentIndex = 0;
 	browseContainer = $("#browse_container");
+
+	quickViewProfileContainer = $("#quick_view_profile_container");
+	viewProfileBio = $("#view_profile_bio");
+	viewProfileFullName = $("#full_name");
+	viewProfileImg = $("#view_profile_pic");
+	viewProfileAge = $("#view_profile_age");
+	viewProfileHeight = $("#view_profile_height");
+	viewProfileHairColor = $("#view_profile_hair_color");
+
 	loadProfiles(currentIndex, currentIndex + 20);
 });
 
@@ -23,12 +42,14 @@ function loadProfiles(startingIndex, howMany) {
 		}
 	}).always(function(returnData) {
 		jsonArray = JSON.parse(returnData);
-		//TODO: iterate over the rows of the json to generate profiles
+		// iterate over the rows of the json to generate profiles
 		for (var i = 0; i < jsonArray.length; i++) {
 			var profile = jsonArray[i];
-			createProfileDOM(profile);
+			users[currentIndex + i] = profile;
+			createProfileDOM(profile, currentIndex + i);
 		}
-		//TODO: update currentIndex accordingly
+		//update currentIndex accordingly
+		currentIndex = currentIndex + jsonArray.length;
 	});
 }
 
@@ -45,7 +66,7 @@ $(window).scroll(function() {
  * create the dom element to append to the browse container,
  * and append it.
  */
-function createProfileDOM(json) {
+function createProfileDOM(json, position) {
 	var columnDiv = $('<div></div>').addClass("col-sm-3");
 	var panel = $('<div></div>').addClass("panel panel-default");
 	var panelHeading = $('<div></div>').addClass("panel-heading");
@@ -57,7 +78,7 @@ function createProfileDOM(json) {
 	//Set first name
 	firstname.html(json.fName);
 	//Set profile img url
-	img.attr('src',"http://imgur.com/cucXLcU.png");
+	img.attr('src', "http://imgur.com/cucXLcU.png");
 	//put everything together
 	well.append(img);
 	panelBody.append(well);
@@ -65,6 +86,29 @@ function createProfileDOM(json) {
 	panel.append(panelHeading);
 	panel.append(panelBody);
 	columnDiv.append(panel);
+
+	columnDiv.click(function() {
+		showQuickViewProfile(position);
+	});
 	// browseContainer.children().last().after(columnDiv);
 	browseContainer.append(columnDiv);
+}
+
+/**
+ * display the quick for for the specified user
+ */
+function showQuickViewProfile(positionInUsersArray) {
+	var profileJson = users[positionInUsersArray];
+	
+	// the display fields for quick view
+	viewProfileBio.html(unescape(profileJson.bio));
+	viewProfileFullName.html(profileJson.fName + " " + profileJson.lName);
+	// viewProfileImg
+	viewProfileAge.html("Age: "+calcAge(profileJson.birthdate));
+	viewProfileHeight.html("Height: " + calculateHeightDisplayString(profileJson.height));
+	viewProfileHairColor.html("Hair color: " + profileJson.hairColor);
+	
+	
+	quickViewProfileContainer.css("display","");
+	browseContainer.css("display","none");
 }
