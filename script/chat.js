@@ -3,6 +3,8 @@
 var chatData;
 var peopleArray = [];
 
+var idCurrentOtherPerson;
+
 $(window).load(function(){
 	chatData = loadChat();
 	//console.log(chatData);
@@ -25,7 +27,39 @@ $(window).load(function(){
 	$("#chatOuterPanel").hide();
 	populatePeopleList();
 	$("#chatOuterPanel").show();
+    
+    $("#send_message").click(function(){
+        var content = escape($("#message_content").val());
+        if(content.length > 0 && content.length < 256){
+        sendMessage(idCurrentOtherPerson, content)}});
+    
 });
+
+function sendMessage(idOther, content){
+    var sessionCookie = getCookie(cookieName);
+	var userId = getCookie(userIdCookie);
+	var ret;
+	$.ajax({
+		async: false,
+		type:"POST",
+		url: sendMessageUrl,
+		data:{
+			"userId":userId,
+			"session":sessionCookie,
+            "userIdTo":idOther,
+			"content":content,
+		}
+	}).always(function(returnData){
+		returnStuff = JSON.parse(returnData);
+		if('error' in returnStuff){
+            ret = !returnStuff.error;
+        }
+        else {
+            ret = false;
+        }
+	});
+	return ret;
+}
 
 
 function populatePeopleList(){
@@ -50,6 +84,8 @@ function populateChatWindow(personId, personName){
 		addChatAtEnd(chatObj);
 		}
 	});
+    
+    idCurrentOtherPerson = personId;
 }
 
 function loadChat(){
@@ -100,7 +136,7 @@ function addChatAtEnd(chatObj){
 	var senderId = chatObj.senderId;
 	var receiverId = chatObj.receiverId;
 	var timeStamp = chatObj.timeStamp;
-	var content = chatObj.content;
+	var content = unescape(chatObj.content);
 	var isMe = (getCookie(userIdCookie) == senderId);
 	
 	if(!isMe){
