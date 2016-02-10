@@ -1,5 +1,8 @@
 "use-strict";
 
+var inputLoginUsername;
+var inputLoginPassword;
+
 var fNameInput;
 var lNameInput;
 var inputGender;
@@ -13,6 +16,9 @@ const fNameCharLimit = 16;
 const lNameCharLimit = 30;
 
 $(window).load(function() {
+	inputLoginUsername = $("#inputUsername");
+	inputLoginPassword = $("#inputPassword");
+	
 	fNameInput = $("#inputFirstname");
 	lNameInput = $("#inputLastname");
 	inputGender = $("#gender");
@@ -149,8 +155,8 @@ function login(userNameOptional, passwordOptional, useOptionalParameters) {
 		username = userNameOptional;
 		password = passwordOptional;
 	} else {
-		username = inputUsername.val();
-		password = inputPassword.val();
+		username = inputLoginUsername.val();
+		password = inputLoginPassword.val();
 	}
 
 	// if(username.length < 1 || password.length < 1){
