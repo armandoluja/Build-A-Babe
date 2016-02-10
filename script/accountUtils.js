@@ -88,7 +88,15 @@ function containsOnlyLetters(string) {
 }
 
 function calcAge(yyyymmdd) {
-  var dateString = yyyymmdd.split("-");
-  var birthday = +new Date(dateString[0],dateString[1],dateString[2]);
-  return ~~((Date.now() - birthday) / (31557600000));
+	var dateString = yyyymmdd.split("-");
+	var birthday = +new Date(dateString[0], dateString[1], dateString[2]);
+	return ~~((Date.now() - birthday) / (31557600000));
+}
+
+function isValidName(text) {
+	if (containsOnlyLetters(text) && text.length > 0) {
+		return true;
+	} else {
+		return false;
+	}
 }

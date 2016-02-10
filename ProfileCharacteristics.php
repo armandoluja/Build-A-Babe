@@ -88,7 +88,7 @@ include ('API/embeddedLoginCheck.php');
 								<div class="col-sm-3">
 									<select name="byear" class="form-control" id="selectBirthYear">
 										<?php 
-											for($i = 1960 ; $i <= 2000 ; $i++){
+											for($i = 1999 ; $i >= 1899 ; $i--){
 												?>
 												<option name = "byear" value="<?= $i ?>"><?= $i ?></option>
 												<?php
