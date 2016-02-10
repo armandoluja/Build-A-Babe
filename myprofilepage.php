@@ -1,5 +1,5 @@
 <?php
-include('API/embeddedLoginCheck.php');
+include ('API/embeddedLoginCheck.php');
 ?>
 <html>
 	<head>
@@ -18,20 +18,20 @@ include('API/embeddedLoginCheck.php');
 		<script type="text/javascript" src="script/cookie.js"></script>
 		<script type="text/javascript" src="script/constants.js"></script>
 		<script type="text/javascript" src="script/myProfilePage.js"></script>
-		
+
 	</head>
 	<body>
-		
+
 		<div class="container">
 
-		<?php
+			<?php
 			include ("navbar.php");
-		?>
-		<div class="row">
-			</br>
-			</br>
-		</div>
-		
+			?>
+			<div class="row">
+				</br>
+				</br>
+			</div>
+
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="page-header">
@@ -141,7 +141,13 @@ include('API/embeddedLoginCheck.php');
 					</div>
 				</div>
 			</div>
-
+			
+			
+			<form id="uploadimage" action="" method="post" enctype="multipart/form-data" style="display: none;">
+				<input type="file" name="file" id="profile_picture_upload_input" style="display: none;" />
+			</form>
+			
+			
 			<div class="row">
 				<div class="col-sm-4">
 					<div id="profile_pic_panel" class="panel panel-default  hoverable">
@@ -151,7 +157,7 @@ include('API/embeddedLoginCheck.php');
 						<div class="panel-body">
 							<div class="col-xs-8 col-xs-offset-2">
 								<div class="well">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
+									<img id="changeProfilePicButton" class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
 								</div>
 							</div>
 						</div>
@@ -271,7 +277,6 @@ include('API/embeddedLoginCheck.php');
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</body>
 </html>
