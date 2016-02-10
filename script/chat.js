@@ -3,7 +3,11 @@
 var chatData;
 var peopleArray = [];
 
+
 var idCurrentOtherPerson;
+var nameCurrentOtherPerson;
+
+var isView5 = true;
 
 $(window).load(function(){
 	chatData = loadChat();
@@ -30,10 +34,38 @@ $(window).load(function(){
     
     $("#send_message").click(function(){
         var content = escape($("#message_content").val());
+        $("#message_content").val("");
         if(content.length > 0 && content.length < 256){
-        sendMessage(idCurrentOtherPerson, content)}});
+            sendMessage(idCurrentOtherPerson, content);
+        }
+    });
+    
+    $("#view_5_button").click(function(){
+        if(isView5)
+            return; //we are already in this view
+        $(this).addClass('btn-primary').removeClass('btn-default');
+        $("#view_all_button").addClass('btn-default').removeClass('btn-primary');
+        isView5 = true;
+    });
+    
+    $("#view_all_button").click(function(){
+        if(!isView5)
+            return; //we are already in this view
+        $(this).addClass('btn-primary').removeClass('btn-default');
+        $("#view_5_button").addClass('btn-default').removeClass('btn-primary');
+        isView5 = false;
+    });
+    
+    setInterval(function(){
+        chatData = loadChat();
+        populateChatWindow(idCurrentOtherPerson, nameCurrentOtherPerson);
+    }, 2000);
     
 });
+
+
+
+
 
 function sendMessage(idOther, content){
     var sessionCookie = getCookie(cookieName);
@@ -50,6 +82,7 @@ function sendMessage(idOther, content){
 			"content":content,
 		}
 	}).always(function(returnData){
+        console.log(returnData);
 		returnStuff = JSON.parse(returnData);
 		if('error' in returnStuff){
             ret = !returnStuff.error;
@@ -79,13 +112,16 @@ function populateChatWindow(personId, personName){
 	$("#chatWindowPersonName").text(personName);
 	
 	$("#chatWindow").empty();
+    var count = 0;
 	$.each(chatData, function(i,chatObj){
-		if(chatObj.senderId == personId || chatObj.receiverId == personId){
-		addChatAtEnd(chatObj);
+		if((chatObj.senderId == personId || chatObj.receiverId == personId) && (count < 5 || !isView5)){
+            addChatAtEnd(chatObj);
+            count++;
 		}
 	});
     
     idCurrentOtherPerson = personId;
+    nameCurrentOtherPerson = personName;
 }
 
 function loadChat(){
@@ -102,9 +138,6 @@ function loadChat(){
 		}
 	}).always(function(returnData){
 		ret = JSON.parse(returnData);
-		/*$.each(json, function(i,chatObj){
-			addChatAtEnd(chatObj);
-		});*/
 	});
 	return ret;
 }
@@ -153,5 +186,5 @@ function addChatAtEnd(chatObj){
 		panel = "<div class='row'><div class='col-xs-10 col-xs-offset-2'><div class='panel panel-primary'><div class='panel-heading'><h3 class='panel-title'><b>You</b></h3></div><div class='panel-body'>"+content+"</div></div></div></div>"
 	else
 		panel = "<div class='row'><div class='col-xs-10'><div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'><b>"+otherUserName+"</b></h3></div><div class='panel-body'>"+content+"</div></div></div></div>"
-	$( "#chatWindow" ).append(panel);
+	$( "#chatWindow" ).prepend(panel);
 }

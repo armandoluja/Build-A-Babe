@@ -1,7 +1,6 @@
 <?php
 include ('connection.php');
 
-
 if (isset($_POST['session']) && isset($_POST['userId'])) {
 	$session = $_POST['session'];
 	$userId = $_POST['userId'];
@@ -39,8 +38,6 @@ $chatId = getChat($userIdFrom, $userIdTo, $db);
 
 
 
-
-
 try {
    sendMessage($chatId, $userIdFrom, $userIdTo, $content, $db);
 } catch (Exception $e) {
@@ -61,10 +58,17 @@ echo '{"error": false}';
         $q3->closeCursor();
     }
 
-    function getChat($userIdFrom, $userIdTo, $db){
-        $q1 = $db -> prepare("Call getChat(:userIdFrom, :userIdTo)");
-        $q1 -> bindValue(':userIdFrom', $userIdFrom);
-        $q1 -> bindValue(':userIdTo', $userIdTo);
+    function getChat($userId1, $userId2, $db){
+        $real1 = $userId1;
+        $real2 = $userId2;
+        if($userId1>$userId2){
+            $real1 = $userId2;
+            $real2 = $userId1;
+        }
+        
+        $q1 = $db -> prepare("Call getChat(:userId1, :userId2)");
+        $q1 -> bindValue(':userId1', $real1);
+        $q1 -> bindValue(':userId2', $real2);
         $q1 -> execute();
         $rowC = $q1 -> rowCount();
         
@@ -95,6 +99,8 @@ echo '{"error": false}';
         $q2 -> bindValue(':userId2', $userId2);
         $q2 -> execute();
         $q2->closeCursor();
-        return getChat($userIdFrom, $userIdTo, $db);
+        if($userId1 < $userId2)
+            return getChat($userId1, $userId2, $db);
+        return getChat($userId2, $userId1, $db);
     }
 ?>

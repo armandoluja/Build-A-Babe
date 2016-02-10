@@ -60,6 +60,13 @@ include('API/embeddedLoginCheck.php');
                 
             </div>
         </div>
+            <div class="panel panel-primary">
+                <div class="btn-group btn-group-justified">
+                    <a class="btn btn-primary" id="view_5_button">View 5</a>
+                    <a class="btn btn-default" id="view_all_button">View All</a>
+                </div>
+                </div>
+            
     </div>
 		
 		
