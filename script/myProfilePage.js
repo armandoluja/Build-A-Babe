@@ -10,6 +10,7 @@ var chooseFileInput;
 //trigger this to open file explorer
 var uploadImageForm;
 //submit this to upload the file
+var userInfo;
 
 $(window).load(function() {
 	chat_panel = $("#chat_panel");
@@ -20,15 +21,44 @@ $(window).load(function() {
 	recently_viewed_panel = $("#recently_viewed_panel");
 	view_stared_users_panel = $("#view_stared_users_panel");
 	browse_users_panel = $("#browse_users_panel");
+	profilePictureDisplay = $("#profile_picture");
 	//File upload
 	chooseFileInput = $("#profile_picture_upload_input");
 	uploadFileForm = $("#uploadimage");
-
+	//Load page
+	loadProfile();
+	
 	setClickFunctions();
 });
 
-function setHoverFunctions() {
+function setProfileImg() {
+	if (userInfo.profilePicId != null) {
+		var url = "img/" + userInfo.profilePicId;
+		profilePictureDisplay.attr("src", url);
+	}else{
+		profilePictureDisplay.attr("src", 'http://imgur.com/cucXLcU.png');
+	}
+}
 
+function loadProfile() {
+	var sessionCookie = getCookie(cookieName);
+	var userId = getCookie(userIdCookie);
+	$.ajax({
+		type : "POST",
+		url : getProfileCharacteristicsUrl,
+		data : {
+			"userId" : userId,
+			"session" : sessionCookie
+		}
+	}).always(function(returnData) {
+		if (returnData != "") {
+			console.log(returnData);
+			userInfo = JSON.parse(returnData);
+			setProfileImg();
+		} else {
+			console.log("failed to get profile info");
+		}
+	});
 }
 
 function setClickFunctions() {
@@ -56,8 +86,9 @@ function setClickFunctions() {
 		var userId = getCookie(userIdCookie);
 		var dataBox = new FormData(this);
 		dataBox.append("userId", userId);
-		dataBox.append("session",sessionCookie);
-		
+		dataBox.append("session", sessionCookie);
+		dataBox.append("setAsProfilePic", true);
+
 		//make the ajax-php call
 		$.ajax({
 			type : "POST",
@@ -68,6 +99,7 @@ function setClickFunctions() {
 			processData : false
 		}).always(function(data) {
 			console.log(data);
+			loadProfile();//refreshes profile picture
 		});
 	});
 

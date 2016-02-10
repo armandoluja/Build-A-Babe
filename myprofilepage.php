@@ -157,7 +157,7 @@ include ('API/embeddedLoginCheck.php');
 						<div class="panel-body">
 							<div class="col-xs-8 col-xs-offset-2">
 								<div class="well">
-									<img id="changeProfilePicButton" class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
+									<img id="profile_picture" class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
 								</div>
 							</div>
 						</div>
