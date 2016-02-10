@@ -1,25 +1,31 @@
-.profile-image{
-    width: 100%;
+.profile-image {
+	width: 100%;
 }
 
-.gallery-image{
-    width: 80%;
-    margin: 10%;
+.gallery-image {
+	width: 80%;
+	margin: 10%;
 }
 
-.view-more{
-    float: right;
+.browse-image{
+	width: 80%;
+	height: 35%;
+	margin: 10%;
 }
 
-.convo-you{
-    text-align: right;
+.view-more {
+	float: right;
 }
 
-.convo-them{
-    text-align: left;
+.convo-you {
+	text-align: right;
 }
 
-.convo-send-btn{
-    float: right;
+.convo-them {
+	text-align: left;
+}
+
+.convo-send-btn {
+	float: right;
 }
 

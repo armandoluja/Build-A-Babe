@@ -89,19 +89,25 @@ $(window).scroll(function() {
  */
 function createProfileDOM(json, position) {
 	var columnDiv = $('<div></div>').addClass("col-sm-3");
+	columnDiv.addClass("browse-col");
 	var panel = $('<div></div>').addClass("panel panel-default");
 	var panelHeading = $('<div></div>').addClass("panel-heading");
 	var firstname = $('<b></b>');
 	var panelBody = $('<div></div>').addClass("panel-body");
 	var well = $('<div></div>').addClass("well");
-	var img = $("<img/>").addClass("gallery-image");
+	var profilePictureDisplay = $("<img/>").addClass("browse-image");
 
 	//Set first name
 	firstname.html(json.fName);
 	//Set profile img url
-	img.attr('src', "http://imgur.com/cucXLcU.png");
+	if (json.profilePicId != null) {
+		var url = "img/" + json.profilePicId;
+		profilePictureDisplay.attr("src", url);
+	}else{
+		profilePictureDisplay.attr("src", 'http://imgur.com/cucXLcU.png');
+	}
 	//put everything together
-	well.append(img);
+	well.append(profilePictureDisplay);
 	panelBody.append(well);
 	panelHeading.append(firstname);
 	panel.append(panelHeading);
@@ -125,7 +131,12 @@ function showQuickViewProfile(positionInUsersArray) {
 	// the display fields for quick view
 	viewProfileBio.html(unescape(profileJson.bio));
 	viewProfileFullName.html(profileJson.fName + " " + profileJson.lName);
-	// viewProfileImg
+	if (profileJson.profilePicId != null) {
+		var url = "img/" + profileJson.profilePicId;
+		viewProfileImg.attr("src", url);
+	}else{
+		viewProfileImg.attr("src", 'http://imgur.com/cucXLcU.png');
+	}
 	viewProfileAge.html("Age: " + calcAge(profileJson.birthdate));
 	viewProfileHeight.html("Height: " + calculateHeightDisplayString(profileJson.height));
 	viewProfileHairColor.html("Hair color: " + profileJson.hairColor);

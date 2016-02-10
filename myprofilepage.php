@@ -12,13 +12,13 @@ include ('API/embeddedLoginCheck.php');
 		<link rel="stylesheet" type="text/css" href="style/myprofilepage.css">
 		<link rel="stylesheet" href="style/viewprofilepage.css" type="text/css">
 		<link rel="stylesheet" href="style/myfont.css" type="text/css">
+		
 		<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="script/accountUtils.js"></script>
 		<script type="text/javascript" src="script/cookie.js"></script>
 		<script type="text/javascript" src="script/constants.js"></script>
 		<script type="text/javascript" src="script/myProfilePage.js"></script>
-
 	</head>
 	<body>
 
@@ -141,13 +141,11 @@ include ('API/embeddedLoginCheck.php');
 					</div>
 				</div>
 			</div>
-			
-			
+
 			<form id="uploadimage" action="" method="post" enctype="multipart/form-data" style="display: none;">
 				<input type="file" name="file" id="profile_picture_upload_input" style="display: none;" />
 			</form>
-			
-			
+
 			<div class="row">
 				<div class="col-sm-4">
 					<div id="profile_pic_panel" class="panel panel-default  hoverable">
@@ -157,7 +155,7 @@ include ('API/embeddedLoginCheck.php');
 						<div class="panel-body">
 							<div class="col-xs-8 col-xs-offset-2">
 								<div class="well">
-									<img id="profile_picture" class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
+									<img id="profile_picture" class="gallery-image" src="http://www.arabianbusiness.com/skins/ab.main/gfx/loading_spinner.gif"/>
 								</div>
 							</div>
 						</div>
