@@ -2,6 +2,7 @@
 
 var chatData;
 var peopleArray = [];
+var numberDataPerPersonArray = [];
 
 
 var idCurrentOtherPerson;
@@ -34,11 +35,26 @@ $(window).load(function(){
     
     $("#send_message").click(function(){
         var content = escape($("#message_content").val());
-        $("#message_content").val("");
-        if(content.length > 0 && content.length < 256){
+        if(content.length > 0 && content.length <= 256){
+            $("#message_content").val("");
             sendMessage(idCurrentOtherPerson, content);
         }
+        $('#message_content').focus();
     });
+    
+    $('#message_content').on('keyup keydown focus focusout', function() {
+        var content = escape($("#message_content").val());
+        if(content.length <= 0 || content.length > 256){
+            if(!$("#send_message").hasClass("disabled")){
+                $("#send_message").addClass("disabled");
+            }
+        }else{
+            if($("#send_message").hasClass("disabled")){
+                $("#send_message").removeClass("disabled");
+            }
+        }
+    });
+    
     
     $("#view_5_button").click(function(){
         if(isView5)
@@ -46,6 +62,7 @@ $(window).load(function(){
         $(this).addClass('btn-primary').removeClass('btn-default');
         $("#view_all_button").addClass('btn-default').removeClass('btn-primary');
         isView5 = true;
+        $('#message_content').focus();
     });
     
     $("#view_all_button").click(function(){
@@ -54,6 +71,7 @@ $(window).load(function(){
         $(this).addClass('btn-primary').removeClass('btn-default');
         $("#view_5_button").addClass('btn-default').removeClass('btn-primary');
         isView5 = false;
+        $('#message_content').focus();
     });
     
     setInterval(function(){
@@ -61,6 +79,7 @@ $(window).load(function(){
         populateChatWindow(idCurrentOtherPerson, nameCurrentOtherPerson);
     }, 2000);
     
+    $('#message_content').focus();
 });
 
 
@@ -122,6 +141,7 @@ function populateChatWindow(personId, personName){
     
     idCurrentOtherPerson = personId;
     nameCurrentOtherPerson = personName;
+    $('#message_content').focus();
 }
 
 function loadChat(){
