@@ -42,8 +42,9 @@ $(window).load(function() {
 		browseContainer.css("display", "");
 		browseHeaderContainer.css("display", "");
 	});
-	
-	btnViewFullProfile = $("#view_full_profile_button");//TODO: use it
+
+	btnViewFullProfile = $("#view_full_profile_button");
+	//TODO: use it
 
 	loadProfiles(currentIndex, currentIndex + 20);
 });
@@ -72,6 +73,7 @@ function loadProfiles(startingIndex, howMany) {
 		//update currentIndex accordingly
 		currentIndex = currentIndex + jsonArray.length;
 	});
+
 }
 
 /**
@@ -88,37 +90,103 @@ $(window).scroll(function() {
  * and append it.
  */
 function createProfileDOM(json, position) {
-	var columnDiv = $('<div></div>').addClass("col-sm-3");
-	columnDiv.addClass("browse-col");
-	var panel = $('<div></div>').addClass("panel panel-default");
+	var outerPanel = $('<div></div>').addClass("panel panel-default");
 	var panelHeading = $('<div></div>').addClass("panel-heading");
-	var firstname = $('<b></b>');
+		//inside panel heading
+		var username = $('<b></b>').html(json.fName);
+		
+		panelHeading.append(username);
+		outerPanel.append(panelHeading);
+		
 	var panelBody = $('<div></div>').addClass("panel-body");
-	var well = $('<div></div>').addClass("well");
-	var profilePictureDisplay = $("<img/>").addClass("browse-image");
-
-	//Set first name
-	firstname.html(json.fName);
-	//Set profile img url
-	if (json.profilePicId != null) {
-		var url = "img/" + json.profilePicId;
-		profilePictureDisplay.attr("src", url);
-	}else{
-		profilePictureDisplay.attr("src", 'http://imgur.com/cucXLcU.png');
-	}
-	//put everything together
-	well.append(profilePictureDisplay);
-	panelBody.append(well);
-	panelHeading.append(firstname);
-	panel.append(panelHeading);
-	panel.append(panelBody);
-	columnDiv.append(panel);
-
-	columnDiv.click(function() {
+	//inside panel body
+	var imagePanel = $('<div></div>').addClass("panel-body");
+	imagePanel.addClass('col-sm-4');
+		//inside imagePanel 
+		var imageWell = $('<div></div>').addClass("well");
+		var img = $('<img/>').addClass('browse-image');
+		if (json.profilePicId != null) {
+			var url = "img/" + json.profilePicId;
+			img.attr("src", url);
+		} else {
+			img.attr("src", 'http://imgur.com/cucXLcU.png');
+		}
+		imageWell.append(img);
+		imagePanel.append(imageWell);
+		panelBody.append(imagePanel);
+		
+	var infoPanel = $('<div></div>').addClass("panel-body");
+	infoPanel.addClass('col-sm-8');
+	//inside info
+	var infoWell = $('<div></div>').addClass("well");
+	//inside well
+	var p = $('<p></p>');
+	//inside p
+	var age = $('<h4></h4>');
+	age.html("Age: "+calcAge(json.birthdate));
+	var br1 = $('<br/>');
+	var bio = $('<h4></h4>').html("Bio: " + unescape(json.bio));
+	var br2 = $('<br/>');
+	var buttonDiv = $('<div></div>').addClass("btn-group");
+	buttonDiv.addClass('btn-group-justified');
+	var btnVFP = $('<a></a>').addClass('btn');
+	btnVFP.addClass('btn-default');
+	btnVFP.attr("href","#");
+	btnVFP.html("View Full Profile");
+	var btnSave = $('<a></a>').addClass('btn btn-default');
+	btnSave.addClass('btn-default');
+	btnSave.attr("href","#");
+	btnSave.html("Save");
+	
+	buttonDiv.append(btnVFP);
+	buttonDiv.append(btnSave);
+	p.append(age);
+	p.append(br1);
+	p.append(bio);
+	p.append(br2);
+	p.append(buttonDiv);
+	infoWell.append(p);
+	infoPanel.append(infoWell);
+	panelBody.append(infoPanel);
+	outerPanel.append(panelBody);
+	
+	btnVFP.click(function(){
 		showQuickViewProfile(position);
 	});
-	// browseContainer.children().last().after(columnDiv);
-	browseContainer.append(columnDiv);
+	
+	browseContainer.append(outerPanel);
+
+	
+	// var columnDiv = $('<div></div>').addClass("col-sm-12 browse-col");
+	// var panel = $('<div></div>').addClass("panel panel-default");
+	// var panelHeading = $('<div></div>').addClass("panel-heading");
+	// var firstname = $('<b></b>');
+	// var panelBody = $('<div></div>').addClass("panel-body");
+	// var well = $('<div></div>').addClass("well");
+	// var profilePictureDisplay = $("<img/>").addClass("browse-image");
+// 
+	// //Set first name
+	// firstname.html(json.fName);
+	// //Set profile img url
+	// if (json.profilePicId != null) {
+		// var url = "img/" + json.profilePicId;
+		// profilePictureDisplay.attr("src", url);
+	// } else {
+		// profilePictureDisplay.attr("src", 'http://imgur.com/cucXLcU.png');
+	// }
+	// //put everything together
+	// well.append(profilePictureDisplay);
+	// panelBody.append(well);
+	// panelHeading.append(firstname);
+	// panel.append(panelHeading);
+	// panel.append(panelBody);
+	// columnDiv.append(panel);
+// 
+	// columnDiv.click(function() {
+		// showQuickViewProfile(position);
+	// });
+	// // browseContainer.children().last().after(columnDiv);
+	// browseContainer.append(columnDiv);
 }
 
 /**
@@ -134,7 +202,7 @@ function showQuickViewProfile(positionInUsersArray) {
 	if (profileJson.profilePicId != null) {
 		var url = "img/" + profileJson.profilePicId;
 		viewProfileImg.attr("src", url);
-	}else{
+	} else {
 		viewProfileImg.attr("src", 'http://imgur.com/cucXLcU.png');
 	}
 	viewProfileAge.html("Age: " + calcAge(profileJson.birthdate));

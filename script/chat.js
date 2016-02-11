@@ -77,7 +77,7 @@ $(window).load(function(){
     setInterval(function(){
         chatData = loadChat();
         populateChatWindow(idCurrentOtherPerson, nameCurrentOtherPerson);
-    }, 2000);
+    }, 300);
     
     $('#message_content').focus();
 });

@@ -47,7 +47,8 @@ include ('API/embeddedLoginCheck.php');
 				</div>
 			</div>
 			<div class="row" id="browse_container">
-
+				
+				
 			</div>
 
 			<div class="row" id="quick_view_profile_container" style="display: none">
@@ -95,7 +96,6 @@ include ('API/embeddedLoginCheck.php');
 				</div>
 
 			</div>
-
 		</div>
 	</body>
 </html>
