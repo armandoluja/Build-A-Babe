@@ -8,7 +8,7 @@ if (isset($_POST['username']) && strlen($_POST['username']) > 0 &&
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 	
-	$getSaltPrep = $db -> prepare('Select salt from LOGIN where username = ?');
+	$getSaltPrep = $db -> prepare('Select salt from login where username = ?');
 	$getSaltPrep -> execute(array($username));
 	
 	if($getSaltPrep->rowCount() < 1){
@@ -21,7 +21,7 @@ if (isset($_POST['username']) && strlen($_POST['username']) > 0 &&
 	$calculatedPassword = sha1($password.$salt);
 	//hashed
 	
-	$getExistsPrep = $db -> prepare('Select id from LOGIN where username = ? and password = ?');
+	$getExistsPrep = $db -> prepare('Select id from login where username = ? and password = ?');
 	$getExistsPrep -> execute(array($username, $calculatedPassword));
 	
 	if($getExistsPrep->rowCount() < 1){
@@ -40,7 +40,7 @@ if (isset($_POST['username']) && strlen($_POST['username']) > 0 &&
 	
 	
 	$generatedCookie = generateRandomString($COOKIE_LENGTH);
-	$updatePrep = $db -> prepare('Update LOGIN set session_cookie = ? Where username = ?');
+	$updatePrep = $db -> prepare('Update login set session_cookie = ? Where username = ?');
 	$updatePrep -> execute(array($generatedCookie, $username));
 	
 		

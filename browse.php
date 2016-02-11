@@ -16,6 +16,7 @@ include ('API/embeddedLoginCheck.php');
 		<script type="text/javascript" src="script/accountUtils.js"></script>
 		<script type="text/javascript" src="script/cookie.js"></script>
 		<script type="text/javascript" src="script/constants.js"></script>
+        <script type="text/javascript" src="script/imageUtils.js"></script>
 		<script type="text/javascript" src="script/browse.js"></script>
 	</head>
 	<body>

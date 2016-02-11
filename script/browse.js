@@ -56,6 +56,7 @@ function loadProfiles(startingIndex, howMany) {
 	var userId = getCookie(userIdCookie);
 	var jsonArray;
 	$.ajax({
+        async: false,
 		type : "POST",
 		url : getProfilesURL,
 		data : {
