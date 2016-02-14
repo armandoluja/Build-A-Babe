@@ -33,7 +33,7 @@ if (isset($_POST['username']) && strlen($_POST['username']) >= $MIN_USERNAME_LEN
 	
 	
 	//check if username taken
-	$availablePrep = $db -> prepare('Select count(username) as numFound from LOGIN where username = ?');
+	$availablePrep = $db -> prepare('Select count(username) as numFound from login where username = ?');
 	$availablePrep -> execute(array($username));
 	
 	if($availablePrep -> rowCount() < 1){
@@ -57,7 +57,7 @@ if (isset($_POST['username']) && strlen($_POST['username']) >= $MIN_USERNAME_LEN
 	$salt = generateRandomString($SALT_LENGTH);
 	$calculatedPassword = sha1($password.$salt);
 	
-	$registerUserPrep = $db -> prepare('INSERT into LOGIN (username, password, salt) values (?, ?, ?)');
+	$registerUserPrep = $db -> prepare('INSERT into login (username, password, salt) values (?, ?, ?)');
 	$execResult = $registerUserPrep -> execute(array($username, $calculatedPassword,$salt));
 	$registerUserPrep ->closeCursor();
 	if($execResult != 1){
@@ -66,7 +66,7 @@ if (isset($_POST['username']) && strlen($_POST['username']) >= $MIN_USERNAME_LEN
 		exit;
 	}
 	
-	$getUserId = $db -> prepare('Select id from LOGIN where username = ? and password = ?');
+	$getUserId = $db -> prepare('Select id from login where username = ? and password = ?');
 	$getUserId -> execute(array($username, $calculatedPassword));
 	
 	if($getUserId->rowCount() != 1){
