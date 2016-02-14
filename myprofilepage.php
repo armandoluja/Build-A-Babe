@@ -41,34 +41,15 @@ include ('API/embeddedLoginCheck.php');
 			</div>
 
 			<div class="row">
-				<div class="col-sm-4">
-					<div id="browse_users_panel" class="panel panel-default hoverable">
+                <div class="col-sm-4">
+					<div id="profile_pic_panel" class="panel panel-default  hoverable">
 						<div class="panel-heading">
-							<b>Browse other users</b>
+							<b>Change profile picture</b>
 						</div>
 						<div class="panel-body">
-							<div class="col-xs-4">
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-							</div>
-							<div class="col-xs-4">
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-							</div>
-							<div class="col-xs-4">
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
+							<div class="col-xs-8 col-xs-offset-2">
+								<div class="well">
+									<img id="profile_picture" class="gallery-image" src="http://www.arabianbusiness.com/skins/ab.main/gfx/loading_spinner.gif"/>
 								</div>
 							</div>
 						</div>
@@ -77,7 +58,7 @@ include ('API/embeddedLoginCheck.php');
 				<div class="col-sm-4">
 					<div id="view_stared_users_panel" class="panel panel-default  hoverable">
 						<div class="panel-heading">
-							<b>View starred users</b>
+							<b>View saved users</b>
 						</div>
 						<div class="panel-body">
 							<div class="col-xs-4">
@@ -148,133 +129,17 @@ include ('API/embeddedLoginCheck.php');
 
 			<div class="row">
 				<div class="col-sm-4">
-					<div id="profile_pic_panel" class="panel panel-default  hoverable">
-						<div class="panel-heading">
-							<b>Change profile picture</b>
-						</div>
-						<div class="panel-body">
-							<div class="col-xs-8 col-xs-offset-2">
-								<div class="well">
-									<img id="profile_picture" class="gallery-image" src="http://www.arabianbusiness.com/skins/ab.main/gfx/loading_spinner.gif"/>
-								</div>
-							</div>
-						</div>
-					</div>
+                    <div id="attributes_panel" class="well hoverable">
+                        <b>Manage my attributes</b>
+                    </div>
 				</div>
-				<div class="col-sm-4">
-					<div id="gallery_panel" class="panel panel-default  hoverable">
-						<div class="panel-heading">
-							<b>Manage gallery</b>
-						</div>
-						<div class="panel-body">
-							<div class="col-xs-4">
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-							</div>
-							<div class="col-xs-4">
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-							</div>
-							<div class="col-xs-4">
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<div id="preferences_panel" class="panel panel-default  hoverable">
-						<div class="panel-heading">
-							<b>Manage my preferences</b>
-						</div>
-						<div class="panel-body">
-							<div class="col-xs-12">
-								<ul class="list-group">
-									<li class="list-group-item">
-										Height: 4'11" - 5'2"
-									</li>
-									<li class="list-group-item">
-										Favorite hair color: Blonde
-									</li>
-									<li class="list-group-item">
-										...
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
+                <div class="col-sm-4">
+                    <div id="preferences_panel" class="well hoverable">
+                        <b>Manage my preferences</b>
+                    </div>
+                </div>
 			</div>
 
-			<div class="row">
-				<div class="col-sm-4">
-					<div id="attributes_panel" class="panel panel-default  hoverable">
-						<div class="panel-heading">
-							<b>Manage my attributes</b>
-						</div>
-						<div class="panel-body">
-							<div class="col-xs-12">
-								<ul class="list-group">
-									<li class="list-group-item">
-										Height: 5'11"
-									</li>
-									<li class="list-group-item">
-										Hair color: Blonde
-									</li>
-									<li class="list-group-item">
-										...
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<div id="chat_panel" class="panel panel-default  hoverable">
-						<div class="panel-heading">
-							<b>View conversations</b>
-						</div>
-						<div class="panel-body">
-							<div class="col-xs-4">
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-							</div>
-							<div class="col-xs-4">
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-							</div>
-							<div class="col-xs-4">
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 		</div>
 	</body>
 </html>

@@ -19,12 +19,6 @@
 					<li>
 						<a href="./chat.php">Chat</a>
 					</li>
-					<li>
-						<a href="./Preferences.php">My Preferences</a>
-					</li>
-					<li>
-						<a href="./ProfileCharacteristics.php">My Attributes</a>
-					</li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
