@@ -29,6 +29,18 @@ if (isset($_POST['session']) && isset($_POST['userId'])) {
 	$isSet -> closeCursor();
 
 	$genderPreference = 'M';
+	$minAge = 18;
+	$maxAge = 100;
+	$minHeight = 36;
+	$maxHeight = 96;
+	$oneHair = null;
+	$twoHair = null;
+	$leastHair = null;
+	$oneEye = null;
+	$twoEye = null;
+	$bodyType = null;
+	$skinTone = null;
+
 	if ($rowcount == 0) {
 		// no preferences set; show default, males
 	} else {
@@ -38,13 +50,29 @@ if (isset($_POST['session']) && isset($_POST['userId'])) {
 		$preferences -> execute();
 		$rowCount = $preferences -> rowCount();
 		if ($rowCount != 1) {
-			exit ;// something is wrong if they have more than 1 preference
+			exit ;
+			// something is wrong if they have more than 1 preference
 		}
 		$preferenceResult = $preferences -> fetch();
+		$preferences -> closeCursor();
 		// change the default preference here
 		$genderPreference = $preferenceResult["gender"];
-		$preferences -> closeCursor();
+		$minAge = $preferenceResult["minAge"];
+		$maxAge = $preferenceResult["maxAge"];
+		$minHeight = $preferenceResult["minHeight"];
+		$maxHeight = $preferenceResult["maxHeight"];
+		$oneHair = $preferenceResult["oneHair"];
+		$twoHair = $preferenceResult["twoHair"];
+		$leastHair = $preferenceResult["leastHair"];
+		$oneEye = $preferenceResult["oneEye"];
+		$twoEye = $preferenceResult["twoEye"];
+		$bodyType = $preferenceResult["bodyType"];
+		$skinTone = $preferenceResult["skinTone"];
 	}
+
+
+	
+	
 	//getprofiles*
 	$getProfs = $db -> prepare("Call getProfilesOfGender(:genderType)");
 	$getProfs -> bindValue(':genderType', $genderPreference);
@@ -54,6 +82,7 @@ if (isset($_POST['session']) && isset($_POST['userId'])) {
 		// no results
 		exit ;
 	}
+
 	$ar = $getProfs -> fetchAll();
 	$getProfs -> closeCursor();
 	echo json_encode($ar);
