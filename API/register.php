@@ -33,8 +33,9 @@ if (isset($_POST['username']) && strlen($_POST['username']) >= $MIN_USERNAME_LEN
 	
 	
 	//check if username taken
-	$availablePrep = $db -> prepare('Select count(username) as numFound from login where username = ?');
-	$availablePrep -> execute(array($username));
+	$availablePrep = $db -> prepare('Call countUsername(:userN)');
+	$availablePrep -> bindValue('userN',$username);
+	$availablePrep -> execute();
 	
 	if($availablePrep -> rowCount() < 1){
 		//query failed to execute
@@ -57,8 +58,11 @@ if (isset($_POST['username']) && strlen($_POST['username']) >= $MIN_USERNAME_LEN
 	$salt = generateRandomString($SALT_LENGTH);
 	$calculatedPassword = sha1($password.$salt);
 	
-	$registerUserPrep = $db -> prepare('INSERT into login (username, password, salt) values (?, ?, ?)');
-	$execResult = $registerUserPrep -> execute(array($username, $calculatedPassword,$salt));
+	$registerUserPrep = $db -> prepare('Call registerUser(:userN,:passW,:salt)');
+	$registerUserPrep -> bindValue('userN',$username);
+	$registerUserPrep -> bindValue('passW',$calculatedPassword);
+	$registerUserPrep -> bindValue('salt',$salt);
+	$execResult = $registerUserPrep -> execute();
 	$registerUserPrep ->closeCursor();
 	if($execResult != 1){
 		//insert failed?
@@ -66,8 +70,10 @@ if (isset($_POST['username']) && strlen($_POST['username']) >= $MIN_USERNAME_LEN
 		exit;
 	}
 	
-	$getUserId = $db -> prepare('Select id from login where username = ? and password = ?');
-	$getUserId -> execute(array($username, $calculatedPassword));
+	$getUserId = $db -> prepare('Call getUserId(:userN, :passW)');
+	$getUserId -> bindValue('userN',$username);
+	$getUserId -> bindValue('passW',$calculatedPassword);
+	$getUserId -> execute();
 	
 	if($getUserId->rowCount() != 1){
 		$getUserId ->closeCursor();

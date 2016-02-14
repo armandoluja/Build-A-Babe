@@ -8,21 +8,26 @@ if (isset($_POST['username']) && strlen($_POST['username']) > 0 &&
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 	
-	$getSaltPrep = $db -> prepare('Select salt from login where username = ?');
-	$getSaltPrep -> execute(array($username));
+	$username = filter_var($username, FILTER_SANITIZE_STRING);
+	$password = filter_var($password, FILTER_SANITIZE_STRING);
 	
+	$getSaltPrep = $db -> prepare('Call getSalt(:userN)');
+	$getSaltPrep -> bindValue('userN', $username);
+	$getSaltPrep -> execute();
 	if($getSaltPrep->rowCount() < 1){
 		echo '{"error": true, "err_pos": 1}';
 		exit;
 	}
 	
 	$saltFetch = $getSaltPrep -> fetch();
+	$getSaltPrep -> closeCursor();// IMPORTANT----------------
 	$salt = $saltFetch['salt'];
 	$calculatedPassword = sha1($password.$salt);
-	//hashed
 	
-	$getExistsPrep = $db -> prepare('Select id from login where username = ? and password = ?');
-	$getExistsPrep -> execute(array($username, $calculatedPassword));
+	$getExistsPrep = $db -> prepare('Call getUserId(:userN, :passW)');
+	$getExistsPrep -> bindValue('userN', $username);
+	$getExistsPrep -> bindValue('passW', $calculatedPassword);
+	$getExistsPrep -> execute();
 	
 	if($getExistsPrep->rowCount() < 1){
 		echo '{"error": true, "err_pos": 2}';
@@ -33,16 +38,18 @@ if (isset($_POST['username']) && strlen($_POST['username']) > 0 &&
 		echo '{"error": true, "err_pos": 3}';
 		exit;
 	}
-	
-	
+
 	$numFoundFetch = $getExistsPrep -> fetch();
+	$getExistsPrep -> closeCursor();//IMPORTANT-----------------
 	$userId = $numFoundFetch['id'];
 	
-	
 	$generatedCookie = generateRandomString($COOKIE_LENGTH);
-	$updatePrep = $db -> prepare('Update login set session_cookie = ? Where username = ?');
-	$updatePrep -> execute(array($generatedCookie, $username));
 	
+	$updatePrep = $db -> prepare('Call loginUpdate(:cookie,:userN)');
+	$updatePrep -> bindValue('cookie',$generatedCookie);
+	$updatePrep -> bindValue('userN',$username);
+	$updatePrep -> execute();
+	$updatePrep -> closeCursor();// IMPORTANT--------------
 		
 	echo '{"error": false, "cookie":"'.$generatedCookie.'", "userId":"'.$userId.'"}';
 } else {
