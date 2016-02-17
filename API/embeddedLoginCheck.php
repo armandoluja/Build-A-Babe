@@ -6,6 +6,8 @@ if (isset($_COOKIE['session']) && isset($_COOKIE['userId'])) {
 	// loginCheck(cookie,userId) returns the userId if OK or nothing if not OK
 	$session = $_COOKIE['session'];
 	$userId = $_COOKIE['userId'];
+    $session = filter_var($session, FILTER_SANITIZE_STRING);
+    $userId = filter_var($userId, FILTER_SANITIZE_STRING);
 
 	$q1 = $db->prepare("Call loginCheck(:cookie, :userId)");
 	$q1 -> bindValue(':cookie',$session);

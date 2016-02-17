@@ -3,6 +3,8 @@ include ('connection.php');
 if (isset($_POST['session']) && isset($_POST['userId'])) {
 	$session = $_POST['session'];
 	$userId = $_POST['userId'];
+    $session = filter_var($session, FILTER_SANITIZE_STRING);
+    $userId = filter_var($userId, FILTER_SANITIZE_STRING);
 
 	//Check that request is from a valid login
 	$q1 = $db -> prepare("Call loginCheck(:cookie, :userId)");
@@ -21,18 +23,24 @@ if (isset($_POST['session']) && isset($_POST['userId'])) {
 	exit;
 }
 
-// TODO sanitize input
 $userId = $_POST['userId'];
-$savedId = $_POST['$savedId'];
-
-
+$savedId = $_POST['savedId'];
+$userId = filter_var($userId, FILTER_SANITIZE_STRING);
+$savedId = filter_var($savedId, FILTER_SANITIZE_STRING);
 
 //check to see if user has other user saved
 $q2 = $db -> prepare("Call isUserSaved(:userId, :savedId)");
 	$q2 -> bindValue(':userId', $userId);
     $q2 -> bindValue(':savedId', $savedId);
 	$q2 -> execute();
+    if($q2 -> errorCode() != '00000'){
+        $q2->closeCursor();
+        echo '{"error": true}';
+        exit;
+    }
 	$savedUserCount = $q2 -> rowCount();
+    $q2->closeCursor();
+    
 
     if($savedUserCount > 1){
         //we messed up
@@ -47,32 +55,37 @@ $q2 = $db -> prepare("Call isUserSaved(:userId, :savedId)");
         //user is not saved so add into saved_user
         addSaved($userId, $savedId, $db);
     }
-    exit;
-
-
-
-
-
 
 function removeSaved($userId, $savedId, $db){
-    
-
-    
-    
-    //print out that the user was removed
+    $q3 = $db -> prepare("Call removeSavedUser(:userId, :savedId)");
+	$q3 -> bindValue(':userId', $userId);
+    $q3 -> bindValue(':savedId', $savedId);
+	$q3 -> execute();
+    if($q3 -> errorCode() != '00000'){
+        $q3->closeCursor();
+        echo '{"error": true}';
+        exit;
+    }else{
+        $q3->closeCursor();
+        echo '{"error": false, "removed": true, "added": false}';//print out that the user was removed
+        exit;
+    } 
 }
-
-
-
-
 
 function addSaved($userId, $savedId, $db){
-
-    //print out that the user was added
+    $q4 = $db -> prepare("Call addSavedUser(:userId, :savedId)");
+	$q4 -> bindValue(':userId', $userId);
+    $q4 -> bindValue(':savedId', $savedId);
+	$q4 -> execute();
+    if($q4 -> errorCode() != '00000'){
+        $q4->closeCursor();
+        echo '{"error": true}';
+        exit;
+    }else{
+        $q4->closeCursor();
+        echo '{"error": false, "removed": false, "added": true}';//print out that the user was added
+        exit;
+    } 
 }
-
-
-
-
 
 ?>

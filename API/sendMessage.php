@@ -4,6 +4,8 @@ include ('connection.php');
 if (isset($_POST['session']) && isset($_POST['userId'])) {
 	$session = $_POST['session'];
 	$userId = $_POST['userId'];
+    $session = filter_var($session, FILTER_SANITIZE_STRING);
+    $userId = filter_var($userId, FILTER_SANITIZE_STRING);
 
 	//Check that request is from a valid login
 	$q1 = $db -> prepare("Call loginCheck(:cookie, :userId)");
@@ -27,6 +29,9 @@ if (isset($_POST['session']) && isset($_POST['userId'])) {
 $userIdFrom = $_POST['userId'];
 $userIdTo = $_POST['userIdTo'];
 $content = $_POST['content'];
+$userIdFrom = filter_var($userIdFrom, FILTER_SANITIZE_STRING);
+$userIdTo = filter_var($userIdTo, FILTER_SANITIZE_STRING);
+$content = filter_var($content, FILTER_SANITIZE_STRING);
 
 if($userIdFrom == $userIdTo){
     //cannot send message to yourself

@@ -7,6 +7,9 @@
 	
 	$session = $_POST['session'];
 	$userId = $_POST['userId'];
+    $session = filter_var($session, FILTER_SANITIZE_STRING);
+    $userId = filter_var($userId, FILTER_SANITIZE_STRING);
+
 	$logout = $db->prepare("Call logout(:userId,:cookie)");
 	$logout -> bindValue(':cookie',$session);
 	$logout -> bindValue(':userId',$userId);

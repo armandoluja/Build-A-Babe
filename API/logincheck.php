@@ -6,9 +6,10 @@ if (!isset($_POST['userId']) || !isset($_POST['session'])) {
 	exit ;
 }
 
-//TODO Sanitize input
 $userId = $_POST['userId'];
 $session = $_POST['session'];
+$session = filter_var($session, FILTER_SANITIZE_STRING);
+$userId = filter_var($userId, FILTER_SANITIZE_STRING);
 
 $q1 = $db -> prepare("Call loginCheck(:cookie, :userId)");
 $q1 -> bindValue(':cookie', $session);

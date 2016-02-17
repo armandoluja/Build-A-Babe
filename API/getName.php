@@ -3,6 +3,8 @@ include ('connection.php');
 if (isset($_POST['session']) && isset($_POST['userId'])) {
 	$session = $_POST['session'];
 	$userId = $_POST['userId'];
+    $session = filter_var($session, FILTER_SANITIZE_STRING);
+    $userId = filter_var($userId, FILTER_SANITIZE_STRING);
 
 	//Check that request is from a valid login
 	$q1 = $db -> prepare("Call loginCheck(:cookie, :userId)");
@@ -21,8 +23,8 @@ if (isset($_POST['session']) && isset($_POST['userId'])) {
 	exit;
 }
 
-// TODO sanitize input
 $userId = $_POST['targetUserId'];
+$userId = filter_var($userId, FILTER_SANITIZE_STRING);
 
 $q1 = $db -> prepare("Call getName(:userId)");
 	$q1 -> bindValue(':userId', $userId);
