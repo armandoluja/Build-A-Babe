@@ -1,5 +1,23 @@
 <?php
 include ('API/embeddedLoginCheck.php');
+$title = "Browse: Suggested Users";
+$which = 0;// 0 = browse with prefs, 1 = view all, 2 = saved , 3 = viewed
+if(isset($_GET['which'])){
+	$type = $_GET['which'];
+	// type = all/saved/viewed/ or nothing (default)
+	if($type == 'all'){
+		$title = "Browse: All Users";
+		$which = 1;
+	}else if($type == 'saved'){
+		$title = "Saved Users";
+		$which = 2;
+	}else if($type == 'viewed'){
+		$title = "Viewed Users";
+		$which = 3;
+	}else{
+		
+	}
+}
 ?>
 <html>
 	<head>
@@ -31,7 +49,8 @@ include ('API/embeddedLoginCheck.php');
 					</br>
 					<div class="col-sm-12">
 						<div class="page-header">
-							<h1 id="page_header_text">Browse</h1>
+							<h1 id="page_header_text"><?= $title ?></h1>
+							<div id="which" style="display:none"><?= $which?></div>
 						</div>
 					</div>
 				</div>
@@ -48,7 +67,6 @@ include ('API/embeddedLoginCheck.php');
 				</div>
 			</div>
 			<div class="row" id="browse_container">
-				
 				
 			</div>
 

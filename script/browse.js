@@ -21,6 +21,8 @@ var btnViewFullProfile;
 var currentIndex;
 var users = [];
 
+var savedUsers = [];
+
 $(window).load(function() {
 	currentIndex = 0;
 	browseContainer = $("#browse_container");
@@ -46,24 +48,52 @@ $(window).load(function() {
 	btnViewFullProfile = $("#view_full_profile_button");
 	//TODO: use it
 
-	loadProfiles(currentIndex, currentIndex + 20);
+	which = $("#which").html().trim();
+	loadSavedUsers();
+	loadProfiles(currentIndex, currentIndex + 20, which);
 });
 
-function loadProfiles(startingIndex, howMany) {
+function loadSavedUsers() {
+	var sessionCookie = getCookie(cookieName);
+	var userId = getCookie(userIdCookie);
+	$.ajax({
+		async : false,
+		type : "POST",
+		url : getSavedUsersURL,
+		data : {
+			"userId" : userId,
+			"session" : sessionCookie
+		}
+	}).always(function(returnData) {
+		if (returnData != null) {
+			var arr = JSON.parse(returnData);
+			if (arr.error != null) {
+
+			} else {
+				for (var i = 0; i < arr.length; i++) {
+					savedUsers.push(arr[i]);
+				}
+			}
+		}
+	});
+}
+
+function loadProfiles(startingIndex, howMany, which) {
 	//TODO: USE STARTINGINDEX AND HOW MANY
 	// ajax call get data from server and append to the div
 	var sessionCookie = getCookie(cookieName);
 	var userId = getCookie(userIdCookie);
 	var jsonArray;
 	$.ajax({
+		async : false,
 		type : "POST",
 		url : getProfilesURL,
 		data : {
 			"userId" : userId,
-			"session" : sessionCookie
+			"session" : sessionCookie,
+			"which" : which
 		}
 	}).always(function(returnData) {
-		console.log(returnData);
 		jsonArray = JSON.parse(returnData);
 		if (jsonArray.error != null) {
 			if (jsonArray.error == true) {
@@ -145,7 +175,27 @@ function createProfileDOM(json, position) {
 	var btnSave = $('<a></a>').addClass('btn btn-default');
 	btnSave.addClass('btn-default');
 	btnSave.attr("href", "#");
-	btnSave.html("Save");
+	var userSaved = false;
+	for (var i = 0; i < savedUsers.length; i++) {
+		if (json.id == savedUsers[i].id) {
+			btnSave.html("Saved");
+			// btnSave.addClass("disabled");
+			btnSave.click(function(event) {
+				event.preventDefault();
+				// alert("unsave user clicked for id: " + savedUsers[i].id);
+				toggleSaved(json.id, this);
+			});
+			userSaved = true;
+			break;
+		}
+	}
+	if (!userSaved) {
+		btnSave.html("Save");
+		btnSave.click(function(event) {
+			event.preventDefault();
+			toggleSaved(json.id, this);
+		});
+	}
 
 	buttonDiv.append(btnVFP);
 	buttonDiv.append(btnSave);
@@ -164,37 +214,30 @@ function createProfileDOM(json, position) {
 	});
 
 	browseContainer.append(outerPanel);
+}
 
-	// var columnDiv = $('<div></div>').addClass("col-sm-12 browse-col");
-	// var panel = $('<div></div>').addClass("panel panel-default");
-	// var panelHeading = $('<div></div>').addClass("panel-heading");
-	// var firstname = $('<b></b>');
-	// var panelBody = $('<div></div>').addClass("panel-body");
-	// var well = $('<div></div>').addClass("well");
-	// var profilePictureDisplay = $("<img/>").addClass("browse-image");
-	//
-	// //Set first name
-	// firstname.html(json.fName);
-	// //Set profile img url
-	// if (json.profilePicId != null) {
-	// var url = "img/" + json.profilePicId;
-	// profilePictureDisplay.attr("src", url);
-	// } else {
-	// profilePictureDisplay.attr("src", 'http://imgur.com/cucXLcU.png');
-	// }
-	// //put everything together
-	// well.append(profilePictureDisplay);
-	// panelBody.append(well);
-	// panelHeading.append(firstname);
-	// panel.append(panelHeading);
-	// panel.append(panelBody);
-	// columnDiv.append(panel);
-	//
-	// columnDiv.click(function() {
-	// showQuickViewProfile(position);
-	// });
-	// // browseContainer.children().last().after(columnDiv);
-	// browseContainer.append(columnDiv);
+function toggleSaved(which, button) {
+	// alert("save user clicked for ID: " + which);
+	var sessionCookie = getCookie(cookieName);
+	var userId = getCookie(userIdCookie);
+	$.ajax({
+		type: "POST",
+		url: addOrRemoveSavedUserURL,
+		data:{
+			"session":sessionCookie,
+			"userId": userId ,
+			"savedId":which
+		}
+	}).always(function(returnData){
+		var json = JSON.parse(returnData);
+		if(json.error == false){
+			if(json.removed == true){
+				$(button).html("Save");
+			}else{
+				$(button).html("Saved");
+			}
+		}
+	});
 }
 
 /**

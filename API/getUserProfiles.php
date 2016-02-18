@@ -29,6 +29,7 @@ if (isset($_POST['session']) && isset($_POST['userId'])) {
 	$isSet -> closeCursor();
 
 	$genderPreference = 'M';
+	//default
 	$minAge = 18;
 	$maxAge = 100;
 	$minHeight = 36;
@@ -70,50 +71,56 @@ if (isset($_POST['session']) && isset($_POST['userId'])) {
 		$bodyType = $preferenceResult["bodyType"];
 		$skinTone = $preferenceResult["skinTone"];
 	}
-// 	
 	$earliestBirthdate = calcBirthdate($maxAge);
 	$latestBirthdate = calcBirthdate($minAge);
-// 	
-	$selectiveQuery = $db -> prepare("Select * from profile where 
-	gender = '$genderPreference' and birthdate > '$earliestBirthdate' and birthdate < '$latestBirthdate' and 
-	height < $maxHeight and height > $minHeight and (hairColor = $oneHair or hairColor = $twoHair) and 
-	(eyeColor = $oneEye or eyeColor = $twoEye) and bodyType = $bodyType and skinTone = $skinTone");
-	
-	$selectiveQuery -> execute();
-	if($selectiveQuery->rowCount() < 1){
-		echo '{"error": true, "err_pos": 3}';
-		exit;
+
+	$which = 0;
+	// 0 = browse with prefs, 1 = view all, 2 = saved , 3 = viewed
+	$query = "";
+	if (isset($_POST['which'])) {
+		$which = $_POST['which'];
+		if ($which == 0) {
+			// browse with preferences
+			//TODO: add to stored procs if time.
+			$query = $db -> prepare("Select * from profile where 
+			gender = '$genderPreference' and birthdate > '$earliestBirthdate' and birthdate < '$latestBirthdate' and 
+			height < $maxHeight and height > $minHeight and (hairColor = $oneHair or hairColor = $twoHair) and 
+			(eyeColor = $oneEye or eyeColor = $twoEye) and bodyType = $bodyType and skinTone = $skinTone");
+		} else if ($which == 1) {
+			// view all users
+			$query = $db -> prepare("Call getProfilesOfGender(:genderType)");
+			$query -> bindValue(':genderType', $genderPreference);
+		} else if ($which == 2) {
+			// view saved users
+			$query = $db ->prepare("Select * from profile where id IN (Select savedId from saved_user where id = $userId)");
+		} else if ($which == 3) {
+			//view viewed users
+
+		} else {
+			exit ;
+			// invalid param
+		}
 	}
-	$selectiveResults = $selectiveQuery -> fetchAll();
-	$selectiveQuery -> closeCursor();
-	echo json_encode($selectiveResults);
-	exit;
-// 	
-	// //getprofiles*
-	// $getProfs = $db -> prepare("Call getProfilesOfGender(:genderType)");
-	// $getProfs -> bindValue(':genderType', $genderPreference);
-	// $getProfs -> execute();
-	// $rowC = $getProfs -> rowCount();
-	// if ($rowC < 1) {
-		// // no results
-		// exit ;
-	// }
-// 
-	// $ar = $getProfs -> fetchAll();
-	// $getProfs -> closeCursor();
-	// echo json_encode($ar);
-	// exit ;
+	$query -> execute();
+	if ($query -> rowCount() < 1) {
+		echo '{"error": true, "err_pos": 3}';
+		exit ;
+	}
+	$results = $query -> fetchAll();
+	$query -> closeCursor();
+	echo json_encode($results);
+	exit ;
 } else {
 	// echo '{"error": true, "err_pos": 5}';
 	exit ;
 }
 
-function calcBirthdate($age){
+function calcBirthdate($age) {
 	$date = date("Y-m-d");
 	$arr = split("-", $date);
 	$year = $arr[0];
 	$birthYear = $year - $age;
-	$date = $birthYear."-".$arr[1]."-".$arr[2];
+	$date = $birthYear . "-" . $arr[1] . "-" . $arr[2];
 	return $date;
 }
 ?>
