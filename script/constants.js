@@ -17,3 +17,4 @@ const sendMessageUrl = "API/sendMessage.php";
 const getProfilesURL = "API/getUserProfiles.php";
 const getSavedUsersURL = "API/getSavedUsers.php";
 const addOrRemoveSavedUserURL = "API/addOrRemoveSavedUser.php";
+const addUserViewedURL = "API/addUserViewed.php";

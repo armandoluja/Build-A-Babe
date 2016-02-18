@@ -210,10 +210,27 @@ function createProfileDOM(json, position) {
 	outerPanel.append(panelBody);
 
 	btnVFP.click(function() {
+		addToViewed(json.id);
 		showQuickViewProfile(position);
 	});
 
 	browseContainer.append(outerPanel);
+}
+
+function addToViewed(idOfOtherUser) {
+	var sessionCookie = getCookie(cookieName);
+	var userId = getCookie(userIdCookie);
+	$.ajax({
+		type : "POST",
+		url : addUserViewedURL,
+		data : {
+			"session" : sessionCookie,
+			"userId" : userId,
+			"vieweeId" : idOfOtherUser
+		}
+	}).always(function(returnData) {
+		console.log(returnData);
+	});
 }
 
 function toggleSaved(which, button) {
@@ -221,19 +238,19 @@ function toggleSaved(which, button) {
 	var sessionCookie = getCookie(cookieName);
 	var userId = getCookie(userIdCookie);
 	$.ajax({
-		type: "POST",
-		url: addOrRemoveSavedUserURL,
-		data:{
-			"session":sessionCookie,
-			"userId": userId ,
-			"savedId":which
+		type : "POST",
+		url : addOrRemoveSavedUserURL,
+		data : {
+			"session" : sessionCookie,
+			"userId" : userId,
+			"savedId" : which
 		}
-	}).always(function(returnData){
+	}).always(function(returnData) {
 		var json = JSON.parse(returnData);
-		if(json.error == false){
-			if(json.removed == true){
+		if (json.error == false) {
+			if (json.removed == true) {
 				$(button).html("Save");
-			}else{
+			} else {
 				$(button).html("Saved");
 			}
 		}

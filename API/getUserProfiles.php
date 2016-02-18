@@ -92,10 +92,11 @@ if (isset($_POST['session']) && isset($_POST['userId'])) {
 			$query -> bindValue(':genderType', $genderPreference);
 		} else if ($which == 2) {
 			// view saved users
-			$query = $db ->prepare("Select * from profile where id IN (Select savedId from saved_user where id = $userId)");
+			$query = $db -> prepare("Select * from profile where id IN (Select savedId from saved_user where id = $userId)");
 		} else if ($which == 3) {
 			//view viewed users
-
+			// $query = $db -> prepare("Select * from profile where id IN (Select vieweeId from viewed where viewerId = $userId)");
+			$query = $db -> prepare("Select DISTINCT id,fName,lName,gender,hairColor,eyeColor,bodyType,skinTone,profilePicId,bio,birthdate,height from ((Select * from viewed join profile on profile.id = viewed.vieweeId where viewed.viewerId = $userId order by viewed.timeStamp desc) as A)");
 		} else {
 			exit ;
 			// invalid param
