@@ -70,7 +70,7 @@ function save() {
 	var maxAge = maxAgeInput.val();
 	var minHeight = minHeightInput.val();
 	var maxHeight = maxHeightInput.val();
-	var favHairColor = favEyeColorInput.val();
+	var favHairColor = favHairColorInput.val();
 	var secondFavHairColor = secondFavHairColorInput.val();
 	var leastHairColor = leastHairColorInput.val();
 	var favEyeColor = favEyeColorInput.val();

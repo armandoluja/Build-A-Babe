@@ -50,6 +50,7 @@ if (isset($_POST['session']) && isset($_POST['userId'])) {
 		$preferences -> execute();
 		$rowCount = $preferences -> rowCount();
 		if ($rowCount != 1) {
+			echo '{"error": true, "err_pos": 2}';
 			exit ;
 			// something is wrong if they have more than 1 preference
 		}
@@ -69,26 +70,50 @@ if (isset($_POST['session']) && isset($_POST['userId'])) {
 		$bodyType = $preferenceResult["bodyType"];
 		$skinTone = $preferenceResult["skinTone"];
 	}
-
-
+// 	
+	$earliestBirthdate = calcBirthdate($maxAge);
+	$latestBirthdate = calcBirthdate($minAge);
+// 	
+	$selectiveQuery = $db -> prepare("Select * from profile where 
+	gender = '$genderPreference' and birthdate > '$earliestBirthdate' and birthdate < '$latestBirthdate' and 
+	height < $maxHeight and height > $minHeight and (hairColor = $oneHair or hairColor = $twoHair) and 
+	(eyeColor = $oneEye or eyeColor = $twoEye) and bodyType = $bodyType and skinTone = $skinTone");
 	
-	
-	//getprofiles*
-	$getProfs = $db -> prepare("Call getProfilesOfGender(:genderType)");
-	$getProfs -> bindValue(':genderType', $genderPreference);
-	$getProfs -> execute();
-	$rowC = $getProfs -> rowCount();
-	if ($rowC < 1) {
-		// no results
-		exit ;
+	$selectiveQuery -> execute();
+	if($selectiveQuery->rowCount() < 1){
+		echo '{"error": true, "err_pos": 3}';
+		exit;
 	}
-
-	$ar = $getProfs -> fetchAll();
-	$getProfs -> closeCursor();
-	echo json_encode($ar);
-	exit ;
+	$selectiveResults = $selectiveQuery -> fetchAll();
+	$selectiveQuery -> closeCursor();
+	echo json_encode($selectiveResults);
+	exit;
+// 	
+	// //getprofiles*
+	// $getProfs = $db -> prepare("Call getProfilesOfGender(:genderType)");
+	// $getProfs -> bindValue(':genderType', $genderPreference);
+	// $getProfs -> execute();
+	// $rowC = $getProfs -> rowCount();
+	// if ($rowC < 1) {
+		// // no results
+		// exit ;
+	// }
+// 
+	// $ar = $getProfs -> fetchAll();
+	// $getProfs -> closeCursor();
+	// echo json_encode($ar);
+	// exit ;
 } else {
 	// echo '{"error": true, "err_pos": 5}';
 	exit ;
+}
+
+function calcBirthdate($age){
+	$date = date("Y-m-d");
+	$arr = split("-", $date);
+	$year = $arr[0];
+	$birthYear = $year - $age;
+	$date = $birthYear."-".$arr[1]."-".$arr[2];
+	return $date;
 }
 ?>

@@ -63,15 +63,24 @@ function loadProfiles(startingIndex, howMany) {
 			"session" : sessionCookie
 		}
 	}).always(function(returnData) {
+		console.log(returnData);
 		jsonArray = JSON.parse(returnData);
-		// iterate over the rows of the json to generate profiles
-		for (var i = 0; i < jsonArray.length; i++) {
-			var profile = jsonArray[i];
-			users[currentIndex + i] = profile;
-			createProfileDOM(profile, currentIndex + i);
+		if (jsonArray.error != null) {
+			if (jsonArray.error == true) {
+				if (jsonArray.err_pos == 3) {
+					alert("No users match your preferences. Try changing them.");
+				}
+			}
+		} else {
+			// iterate over the rows of the json to generate profiles
+			for (var i = 0; i < jsonArray.length; i++) {
+				var profile = jsonArray[i];
+				users[currentIndex + i] = profile;
+				createProfileDOM(profile, currentIndex + i);
+			}
+			//update currentIndex accordingly
+			currentIndex = currentIndex + jsonArray.length;
 		}
-		//update currentIndex accordingly
-		currentIndex = currentIndex + jsonArray.length;
 	});
 
 }
@@ -92,29 +101,29 @@ $(window).scroll(function() {
 function createProfileDOM(json, position) {
 	var outerPanel = $('<div></div>').addClass("panel panel-default");
 	var panelHeading = $('<div></div>').addClass("panel-heading");
-		//inside panel heading
-		var username = $('<b></b>').html(json.fName);
-		
-		panelHeading.append(username);
-		outerPanel.append(panelHeading);
-		
+	//inside panel heading
+	var username = $('<b></b>').html(json.fName);
+
+	panelHeading.append(username);
+	outerPanel.append(panelHeading);
+
 	var panelBody = $('<div></div>').addClass("panel-body");
 	//inside panel body
 	var imagePanel = $('<div></div>').addClass("panel-body");
 	imagePanel.addClass('col-sm-4');
-		//inside imagePanel 
-		var imageWell = $('<div></div>').addClass("well");
-		var img = $('<img/>').addClass('browse-image');
-		if (json.profilePicId != null) {
-			var url = "img/" + json.profilePicId;
-			img.attr("src", url);
-		} else {
-			img.attr("src", 'http://imgur.com/cucXLcU.png');
-		}
-		imageWell.append(img);
-		imagePanel.append(imageWell);
-		panelBody.append(imagePanel);
-		
+	//inside imagePanel
+	var imageWell = $('<div></div>').addClass("well");
+	var img = $('<img/>').addClass('browse-image');
+	if (json.profilePicId != null) {
+		var url = "img/" + json.profilePicId;
+		img.attr("src", url);
+	} else {
+		img.attr("src", 'http://imgur.com/cucXLcU.png');
+	}
+	imageWell.append(img);
+	imagePanel.append(imageWell);
+	panelBody.append(imagePanel);
+
 	var infoPanel = $('<div></div>').addClass("panel-body");
 	infoPanel.addClass('col-sm-8');
 	//inside info
@@ -123,7 +132,7 @@ function createProfileDOM(json, position) {
 	var p = $('<p></p>');
 	//inside p
 	var age = $('<h4></h4>');
-	age.html("Age: "+calcAge(json.birthdate));
+	age.html("Age: " + calcAge(json.birthdate));
 	var br1 = $('<br/>');
 	var bio = $('<h4></h4>').html("Bio: " + unescape(json.bio));
 	var br2 = $('<br/>');
@@ -131,13 +140,13 @@ function createProfileDOM(json, position) {
 	buttonDiv.addClass('btn-group-justified');
 	var btnVFP = $('<a></a>').addClass('btn');
 	btnVFP.addClass('btn-default');
-	btnVFP.attr("href","#");
+	btnVFP.attr("href", "#");
 	btnVFP.html("View Full Profile");
 	var btnSave = $('<a></a>').addClass('btn btn-default');
 	btnSave.addClass('btn-default');
-	btnSave.attr("href","#");
+	btnSave.attr("href", "#");
 	btnSave.html("Save");
-	
+
 	buttonDiv.append(btnVFP);
 	buttonDiv.append(btnSave);
 	p.append(age);
@@ -149,14 +158,13 @@ function createProfileDOM(json, position) {
 	infoPanel.append(infoWell);
 	panelBody.append(infoPanel);
 	outerPanel.append(panelBody);
-	
-	btnVFP.click(function(){
+
+	btnVFP.click(function() {
 		showQuickViewProfile(position);
 	});
-	
+
 	browseContainer.append(outerPanel);
 
-	
 	// var columnDiv = $('<div></div>').addClass("col-sm-12 browse-col");
 	// var panel = $('<div></div>').addClass("panel panel-default");
 	// var panelHeading = $('<div></div>').addClass("panel-heading");
@@ -164,15 +172,15 @@ function createProfileDOM(json, position) {
 	// var panelBody = $('<div></div>').addClass("panel-body");
 	// var well = $('<div></div>').addClass("well");
 	// var profilePictureDisplay = $("<img/>").addClass("browse-image");
-// 
+	//
 	// //Set first name
 	// firstname.html(json.fName);
 	// //Set profile img url
 	// if (json.profilePicId != null) {
-		// var url = "img/" + json.profilePicId;
-		// profilePictureDisplay.attr("src", url);
+	// var url = "img/" + json.profilePicId;
+	// profilePictureDisplay.attr("src", url);
 	// } else {
-		// profilePictureDisplay.attr("src", 'http://imgur.com/cucXLcU.png');
+	// profilePictureDisplay.attr("src", 'http://imgur.com/cucXLcU.png');
 	// }
 	// //put everything together
 	// well.append(profilePictureDisplay);
@@ -181,9 +189,9 @@ function createProfileDOM(json, position) {
 	// panel.append(panelHeading);
 	// panel.append(panelBody);
 	// columnDiv.append(panel);
-// 
+	//
 	// columnDiv.click(function() {
-		// showQuickViewProfile(position);
+	// showQuickViewProfile(position);
 	// });
 	// // browseContainer.children().last().after(columnDiv);
 	// browseContainer.append(columnDiv);
