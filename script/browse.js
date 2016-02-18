@@ -50,8 +50,7 @@ $(window).load(function() {
 		browseHeaderContainer.css("display", "");
 	});
 
-	btnViewFullProfile = $("#view_full_profile_button");
-	//TODO: use it
+	btnBigSaveBtn = $("#big_save_button");
 
 	which = $("#which").html().trim();
 	loadSavedUsers();
@@ -298,6 +297,27 @@ function showQuickViewProfile(positionInUsersArray) {
 	viewProfileHairColor.html("Hair Color: " + getHairColor(profileJson.hairColor));
 	viewProfileEyeColor.html("Eye Color: " + getEyeColor(profileJson.eyeColor));
 	viewProfileBodyType.html("Body Type: " + getBodyType(profileJson.bodyType));
+	
+	btnBigSaveBtn.unbind();
+	var userSaved = false;
+	for (var i = 0; i < savedUsers.length; i++) {
+		if (json.id == savedUsers[i].id) {
+			btnBigSaveBtn.html("Saved");
+			btnBigSaveBtn.click(function(event) {
+				event.preventDefault();
+				toggleSaved(profileJson.id, this);
+			});
+			userSaved = true;
+			break;
+		}
+	}
+	if (!userSaved) {
+		btnBigSaveBtn.html("Save");
+		btnBigSaveBtn.click(function(event) {
+			event.preventDefault();
+			toggleSaved(profileJson.id, this);
+		});
+	}
 	
 
 	quickViewProfileContainer.css("display", "");

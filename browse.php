@@ -62,7 +62,7 @@ if(isset($_GET['which'])){
 					</br>
 					<div class="btn-group btn-group-justified">
 						<a id="back_to_results_button" href="#" class="btn btn-default">Back to results</a>
-						<a id="view_full_profile_button" href="#" class="btn btn-default">View full profile</a>
+						<a id="big_save_button" href="#" class="btn btn-default">Save</a>
 					</div>
 				</div>
 			</div>
