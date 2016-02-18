@@ -37,6 +37,10 @@ $userId = filter_var($userId, FILTER_SANITIZE_STRING);
     $q2 = $db -> prepare("Call getSavedUsersIds(:userId)");
 	$q2 -> bindValue(':userId', $userId);
 	$q2 -> execute();
+    if($q2->rowCount()==0){
+        echo '{"error": true}';
+		exit;
+    }
 	$outputJSON = "[";
 	
 	do{

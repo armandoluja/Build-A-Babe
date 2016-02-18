@@ -28,6 +28,8 @@ $(window).load(function() {
 	uploadFileForm = $("#uploadimage");
 	//Load page
 	loadProfile();
+    
+    loadProfileImages();
 	
 	setClickFunctions();
 });
@@ -60,6 +62,96 @@ function loadProfile() {
 			console.log("failed to get profile info");
 		}
 	});
+}
+
+function loadProfileImages(){
+    var sessionCookie = getCookie(cookieName);
+	var userId = getCookie(userIdCookie);
+	$.ajax({
+		async: false,
+        dataType: 'json',
+		type:"POST",
+		url: "API/getSavedUsers.php",
+		data:{
+			"userId":userId,
+			"session":sessionCookie
+		}
+	}).always(function(returnData){
+        console.log(returnData);
+		//returnStuff = JSON.parse(returnData);
+        returnStuff = returnData;
+        for(var i = 1; i <= 6; i++){
+            var temp = '#savedUserImage'+i;
+            $(temp).attr("src", "http://imgur.com/cucXLcU.png");
+        }
+		if('error' in returnStuff){
+            if(returnStuff.error = true){
+                console.log("error getting saved users");
+            }
+        }
+        else {
+            $.each(returnData, function(index){
+                index++; //1 index
+                if(index>6){
+                    return;
+                }
+                var id = $(this)[0].id;
+                $.ajax({
+                url : "./API/getProfilePicture.php?id="+id,
+                success : function(result){
+                    if(result!="null"){
+                        var temp = '#savedUserImage'+index;
+                        $(temp).attr("src", result);
+                    }
+                }
+                });
+            });
+        }
+	});
+    
+    
+    $.ajax({
+		async: false,
+        dataType: 'json',
+		type:"POST",
+		url: "API/getViewedUsers.php",
+		data:{
+			"userId":userId,
+			"session":sessionCookie
+		}
+	}).always(function(returnData){
+        console.log(returnData);
+		//returnStuff = JSON.parse(returnData);
+        returnStuff = returnData;
+        for(var i = 1; i <= 6; i++){
+            var temp = '#viewedUserImage'+i;
+            $(temp).attr("src", "http://imgur.com/cucXLcU.png");
+        }
+		if('error' in returnStuff){
+            if(returnStuff.error = true){
+                console.log("error getting viewed users");
+            }
+        }
+        else {
+            $.each(returnData, function(index){
+                index++; //1 index
+                if(index>6){
+                    return;
+                }
+                var id = $(this)[0].id;
+                $.ajax({
+                url : "./API/getProfilePicture.php?id="+id,
+                success : function(result){
+                    if(result!="null"){
+                        var temp = '#viewedUserImage'+index;
+                        $(temp).attr("src", result);
+                    }
+                }
+                });
+            });
+        }
+	});
+    
 }
 
 function setClickFunctions() {

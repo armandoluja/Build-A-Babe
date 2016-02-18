@@ -49,7 +49,7 @@ include ('API/embeddedLoginCheck.php');
 						<div class="panel-body">
 							<div class="col-xs-8 col-xs-offset-2">
 								<div class="well">
-									<img id="profile_picture" class="gallery-image" src="http://www.arabianbusiness.com/skins/ab.main/gfx/loading_spinner.gif"/>
+									<img id="profile_picture" class="gallery-image" src="http://i.imgur.com/j9u2WtH.gif"/>
 								</div>
 							</div>
 						</div>
@@ -61,66 +61,96 @@ include ('API/embeddedLoginCheck.php');
 							<b>View saved users</b>
 						</div>
 						<div class="panel-body">
-							<div class="col-xs-4">
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-							</div>
-							<div class="col-xs-4">
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-							</div>
-							<div class="col-xs-4">
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-							</div>
+                            
+                            <div class="row">
+                                <div class="col-xs-4">
+								    <div class="well well-sm">
+									   <img id="savedUserImage1" class="gallery-image" src="http://i.imgur.com/j9u2WtH.gif"/>
+								    </div>
+							     </div>
+                                <div class="col-xs-4">
+								    <div class="well well-sm">
+									   <img id="savedUserImage2" class="gallery-image" src="http://i.imgur.com/j9u2WtH.gif"/>
+								    </div>
+							     </div>
+                                <div class="col-xs-4">
+								    <div class="well well-sm">
+									   <img id="savedUserImage3" class="gallery-image" src="http://i.imgur.com/j9u2WtH.gif"/>
+								    </div>
+							     </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4">
+								    <div class="well well-sm">
+									   <img id="savedUserImage4" class="gallery-image" src="http://i.imgur.com/j9u2WtH.gif"/>
+								    </div>
+							     </div>
+                                <div class="col-xs-4">
+								    <div class="well well-sm">
+									   <img id="savedUserImage5" class="gallery-image" src="http://i.imgur.com/j9u2WtH.gif"/>
+								    </div>
+							     </div>
+                                <div class="col-xs-4">
+								    <div class="well well-sm">
+									   <img id="savedUserImage6" class="gallery-image" src="http://i.imgur.com/j9u2WtH.gif"/>
+								    </div>
+							     </div>
+                                
+                            </div>
+                            
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-4">
-					<div id="recently_viewed_panel" class="panel panel-default  hoverable">
+                
+                <div class="col-sm-4">
+					<div id="view_saved_users_panel" class="panel panel-default  hoverable">
 						<div class="panel-heading">
 							<b>Recently viewed users</b>
 						</div>
 						<div class="panel-body">
-							<div class="col-xs-4">
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-							</div>
-							<div class="col-xs-4">
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-							</div>
-							<div class="col-xs-4">
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-								<div class="well well-sm">
-									<img class="gallery-image" src="http://imgur.com/cucXLcU.png"/>
-								</div>
-							</div>
+                            
+                            <div class="row">
+                                <div class="col-xs-4">
+								    <div class="well well-sm">
+									   <img id="viewedUserImage1" class="gallery-image" src="http://i.imgur.com/j9u2WtH.gif"/>
+								    </div>
+							     </div>
+                                <div class="col-xs-4">
+								    <div class="well well-sm">
+									   <img id="viewedUserImage2" class="gallery-image" src="http://i.imgur.com/j9u2WtH.gif"/>
+								    </div>
+							     </div>
+                                <div class="col-xs-4">
+								    <div class="well well-sm">
+									   <img id="viewedUserImage3" class="gallery-image" src="http://i.imgur.com/j9u2WtH.gif"/>
+								    </div>
+							     </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4">
+								    <div class="well well-sm">
+									   <img id="viewedUserImage4" class="gallery-image" src="http://i.imgur.com/j9u2WtH.gif"/>
+								    </div>
+							     </div>
+                                <div class="col-xs-4">
+								    <div class="well well-sm">
+									   <img id="viewedUserImage5" class="gallery-image" src="http://i.imgur.com/j9u2WtH.gif"/>
+								    </div>
+							     </div>
+                                <div class="col-xs-4">
+								    <div class="well well-sm">
+									   <img id="viewedUserImage6" class="gallery-image" src="http://i.imgur.com/j9u2WtH.gif"/>
+								    </div>
+							     </div>
+                                
+                            </div>
+                            
 						</div>
 					</div>
 				</div>
+                
+                
+                
 			</div>
 
 			<form id="uploadimage" action="" method="post" enctype="multipart/form-data" style="display: none;">
