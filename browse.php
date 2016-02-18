@@ -119,8 +119,30 @@ if(isset($_GET['which'])){
 						</div>
 					</div>
 				</div>
+                
+                
+                <div class="col-sm-8">
+                     <div class="panel panel-default">
+						<div class="panel-heading">
+							<b>Send Chat Message</b>
+						</div>
+						<div class="panel-body">
+                        <div class="col-xs-12">
+                <div class="input-group">
+                    <input type="text" id="message_content" class="form-control">
+                    <span class="input-group-btn">
+                      <button class="btn btn-primary" id="send_message" type="button">Send</button>
+                    </span>
+                  </div>
+                </div>
+                    </div>
+					</div>
+                    </div>
 
 			</div>
+
+
+
 		</div>
 	</body>
 </html>

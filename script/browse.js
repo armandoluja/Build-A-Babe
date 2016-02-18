@@ -23,6 +23,8 @@ var users = [];
 
 var savedUsers = [];
 
+var curPos;
+
 $(window).load(function() {
 	currentIndex = 0;
 	browseContainer = $("#browse_container");
@@ -54,6 +56,19 @@ $(window).load(function() {
 	which = $("#which").html().trim();
 	loadSavedUsers();
 	loadProfiles(currentIndex, currentIndex + 20, which);
+    
+    $("#send_message").click(function(){
+        var content = escape($("#message_content").val());
+        if(content.length > 0 && content.length <= 256){
+            $("#message_content").val("");
+            if(sendMessage(users[curPos].id, content)){
+               alert("Message Sent"); 
+            }else{
+                alert("Message Could Not Send");
+            }
+        }
+        $('#message_content').focus();
+    });
 });
 
 function loadSavedUsers() {
@@ -264,6 +279,7 @@ function toggleSaved(which, button) {
  * display the quick for for the specified user
  */
 function showQuickViewProfile(positionInUsersArray) {
+    curPos = positionInUsersArray;
 	//TODO: set the redirect path for the full profile button
 	var profileJson = users[positionInUsersArray];
 
@@ -288,4 +304,37 @@ function showQuickViewProfile(positionInUsersArray) {
 	quickViewHeaderContainer.css("display", "");
 	browseContainer.css("display", "none");
 	browseHeaderContainer.css("display", "none");
+}
+
+
+
+
+    
+
+
+function sendMessage(idOther, content){
+    var sessionCookie = getCookie(cookieName);
+	var userId = getCookie(userIdCookie);
+	var ret;
+	$.ajax({
+		async: false,
+		type:"POST",
+		url: sendMessageUrl,
+		data:{
+			"userId":userId,
+			"session":sessionCookie,
+            "userIdTo":idOther,
+			"content":content,
+		}
+	}).always(function(returnData){
+        console.log(returnData);
+		returnStuff = JSON.parse(returnData);
+		if('error' in returnStuff){
+            ret = !returnStuff.error;
+        }
+        else {
+            ret = false;
+        }
+	});
+	return ret;
 }
