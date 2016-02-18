@@ -157,6 +157,7 @@ function loadChat(){
 			"session":sessionCookie
 		}
 	}).always(function(returnData){
+		console.log(returnData);
 		ret = JSON.parse(returnData);
 	});
 	return ret;

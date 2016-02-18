@@ -55,7 +55,7 @@ echo '{"error": false}';
 
     function sendMessage($chatId, $userIdFrom, $userIdTo, $content, $db){
         $q3 = $db -> prepare("Call sendMessage(:chatId, :senderId, :receiverId, :content)");
-        $q3 -> bindValue(':chatId', $userIdFrom);
+        $q3 -> bindValue(':chatId', $chatId);
         $q3 -> bindValue(':senderId', $userIdFrom);
         $q3 -> bindValue(':receiverId', $userIdTo);
         $q3 -> bindValue(':content', $content);
@@ -85,15 +85,15 @@ echo '{"error": false}';
         else if($rowC != 1){
             $q1->closeCursor();
             //Chat does not exist, lets make one!
-            if($userIdFrom < $userIdTo)
-                return createChat($userIdFrom, $userIdTo, $db);
+            if($userId1 < $userId2)
+                return createChat($userId1, $userId2, $db);
             else
-                return createChat($userIdTo, $userIdFrom, $db);
+                return createChat($userId2, $userId1, $db);
         }
 
         $row = $q1 -> fetch(PDO::FETCH_ASSOC);
         $q1->closeCursor();
-        return $row["chatId"];
+        return $row['chatId'];
         
     }
 
