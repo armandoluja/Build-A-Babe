@@ -16,7 +16,7 @@ var pageHeader;
 
 //buttons
 var btnBackToResults;
-var btnViewFullProfile;
+var btnBigSaveBtn;
 
 var currentIndex;
 var users = [];
@@ -71,6 +71,7 @@ $(window).load(function() {
 });
 
 function loadSavedUsers() {
+	savedUsers = [];
 	var sessionCookie = getCookie(cookieName);
 	var userId = getCookie(userIdCookie);
 	$.ajax({
@@ -200,7 +201,7 @@ function createProfileDOM(json, position) {
 			btnSave.click(function(event) {
 				event.preventDefault();
 				// alert("unsave user clicked for id: " + savedUsers[i].id);
-				toggleSaved(json.id, this);
+				toggleSaved(json, this);
 			});
 			userSaved = true;
 			break;
@@ -210,7 +211,7 @@ function createProfileDOM(json, position) {
 		btnSave.html("Save");
 		btnSave.click(function(event) {
 			event.preventDefault();
-			toggleSaved(json.id, this);
+			toggleSaved(json, this);
 		});
 	}
 
@@ -228,7 +229,7 @@ function createProfileDOM(json, position) {
 
 	btnVFP.click(function() {
 		addToViewed(json.id);
-		showQuickViewProfile(position);
+		showQuickViewProfile(position, $(btnSave));
 	});
 
 	browseContainer.append(outerPanel);
@@ -250,10 +251,11 @@ function addToViewed(idOfOtherUser) {
 	});
 }
 
-function toggleSaved(which, button) {
+function toggleSaved(savedUser, button) {
 	// alert("save user clicked for ID: " + which);
 	var sessionCookie = getCookie(cookieName);
 	var userId = getCookie(userIdCookie);
+	var which = savedUser.id;
 	$.ajax({
 		type : "POST",
 		url : addOrRemoveSavedUserURL,
@@ -267,8 +269,16 @@ function toggleSaved(which, button) {
 		if (json.error == false) {
 			if (json.removed == true) {
 				$(button).html("Save");
+				var newSavedUsers = [];
+				for(var i = 0; i < savedUsers.length; i++){
+					if(savedUsers[i].id != which){
+						newSavedUsers.push(savedUsers[i]);
+					}
+				}
+				savedUsers = newSavedUsers;
 			} else {
 				$(button).html("Saved");
+				savedUsers.push(savedUser);
 			}
 		}
 	});
@@ -277,7 +287,7 @@ function toggleSaved(which, button) {
 /**
  * display the quick for for the specified user
  */
-function showQuickViewProfile(positionInUsersArray) {
+function showQuickViewProfile(positionInUsersArray, saveButtonFromBrowse) {
     curPos = positionInUsersArray;
 	//TODO: set the redirect path for the full profile button
 	var profileJson = users[positionInUsersArray];
@@ -301,11 +311,12 @@ function showQuickViewProfile(positionInUsersArray) {
 	btnBigSaveBtn.unbind();
 	var userSaved = false;
 	for (var i = 0; i < savedUsers.length; i++) {
-		if (json.id == savedUsers[i].id) {
+		if (profileJson.id == savedUsers[i].id) {
 			btnBigSaveBtn.html("Saved");
 			btnBigSaveBtn.click(function(event) {
 				event.preventDefault();
-				toggleSaved(profileJson.id, this);
+				toggleSaved(profileJson, this);
+				$(saveButtonFromBrowse).html("Saved");
 			});
 			userSaved = true;
 			break;
@@ -315,7 +326,8 @@ function showQuickViewProfile(positionInUsersArray) {
 		btnBigSaveBtn.html("Save");
 		btnBigSaveBtn.click(function(event) {
 			event.preventDefault();
-			toggleSaved(profileJson.id, this);
+			toggleSaved(profileJson, this);
+			$(saveButtonFromBrowse).html("Save");
 		});
 	}
 	
