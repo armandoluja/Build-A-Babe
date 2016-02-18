@@ -99,7 +99,7 @@ if (isset($_POST['session']) && isset($_POST['userId'])) {
 			$query = $db -> prepare("Select DISTINCT id,fName,lName,gender,hairColor,eyeColor,bodyType,skinTone,profilePicId,bio,birthdate,height from ((Select * from viewed join profile on profile.id = viewed.vieweeId where viewed.viewerId = $userId order by viewed.timeStamp desc) as A)");
 		} else {
 			exit ;
-			// invalid param
+			// invalid param 
 		}
 	}
 	$query -> execute();
