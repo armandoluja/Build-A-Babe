@@ -1,6 +1,6 @@
 <?php
 include ('connection.php');
-$maxFileSize = 100000;
+$maxFileSize = 10000000;
 if (isset($_FILES['file']['type']) && isset($_POST['userId']) && isset($_POST['session'])) {
 
 	$userId = $_POST['userId'];
