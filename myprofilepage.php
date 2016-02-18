@@ -56,7 +56,7 @@ include ('API/embeddedLoginCheck.php');
 					</div>
 				</div>
 				<div class="col-sm-4">
-					<div id="view_stared_users_panel" class="panel panel-default  hoverable">
+					<div id="view_saved_users_panel" class="panel panel-default  hoverable">
 						<div class="panel-heading">
 							<b>View saved users</b>
 						</div>

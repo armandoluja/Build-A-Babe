@@ -5,6 +5,7 @@ var preferences_panel;
 var gallery_panel;
 var profile_pic_panel;
 var recently_viewed_panel;
+var view_saved_users_panel;
 var browse_users_panel;
 var chooseFileInput;
 //trigger this to open file explorer
@@ -19,7 +20,7 @@ $(window).load(function() {
 	gallery_panel = $("#gallery_panel");
 	profile_pic_panel = $("#profile_pic_panel");
 	recently_viewed_panel = $("#recently_viewed_panel");
-	view_stared_users_panel = $("#view_stared_users_panel");
+	view_saved_users_panel = $("#view_saved_users_panel");
 	browse_users_panel = $("#browse_users_panel");
 	profilePictureDisplay = $("#profile_picture");
 	//File upload
@@ -103,11 +104,15 @@ function setClickFunctions() {
 		});
 	});
 
-	// gallery_panel
-	// profile_pic_panel
-	// recently_viewed_panel
-	// view_stared_users_panel
 	browse_users_panel.click(function() {
 		window.location.href = "browse.php";
 	});
+    
+    recently_viewed_panel.click(function(){
+        window.location.href = "browse.php?which=viewed";
+    });
+    
+    view_saved_users_panel.click(function(){
+        window.location.href = "browse.php?which=saved";
+    });
 }
