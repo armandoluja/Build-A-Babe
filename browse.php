@@ -101,13 +101,19 @@ if(isset($_GET['which'])){
 						<div class="panel-body">
 							<ul class="list-group">
 								<li id="view_profile_age" class="list-group-item">
-									Age: 23
+									Age: Not set
 								</li>
 								<li id="view_profile_height" class="list-group-item">
-									Height: 5'11"
+									Height: Not set
 								</li>
 								<li id="view_profile_hair_color" class="list-group-item">
-									Hair Color: Brown
+									Hair Color: Not set
+								</li>
+								<li id="view_profile_eye_color" class="list-group-item">
+									Eye Color: Not set
+								</li>
+								<li id="view_profile_body_type" class="list-group-item">
+									Body Type: Not set
 								</li>
 							</ul>
 						</div>

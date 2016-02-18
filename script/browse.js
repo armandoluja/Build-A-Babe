@@ -36,7 +36,10 @@ $(window).load(function() {
 	viewProfileAge = $("#view_profile_age");
 	viewProfileHeight = $("#view_profile_height");
 	viewProfileHairColor = $("#view_profile_hair_color");
+	viewProfileEyeColor = $("#view_profile_eye_color");
+	viewProfileBodyType = $("#view_profile_body_type");
 	pageHeader = $("#page_header_text");
+	
 
 	btnBackToResults = $("#back_to_results_button").click(function() {
 		quickViewProfileContainer.css("display", "none");
@@ -274,8 +277,12 @@ function showQuickViewProfile(positionInUsersArray) {
 		viewProfileImg.attr("src", 'http://imgur.com/cucXLcU.png');
 	}
 	viewProfileAge.html("Age: " + calcAge(profileJson.birthdate));
+	console.log(profileJson);
 	viewProfileHeight.html("Height: " + calculateHeightDisplayString(profileJson.height));
-	viewProfileHairColor.html("Hair color: " + profileJson.hairColor);
+	viewProfileHairColor.html("Hair Color: " + getHairColor(profileJson.hairColor));
+	viewProfileEyeColor.html("Eye Color: " + getEyeColor(profileJson.eyeColor));
+	viewProfileBodyType.html("Body Type: " + getBodyType(profileJson.bodyType));
+	
 
 	quickViewProfileContainer.css("display", "");
 	quickViewHeaderContainer.css("display", "");

@@ -100,3 +100,55 @@ function isValidName(text) {
 		return false;
 	}
 }
+
+function getBodyType(num) {
+	switch(parseInt(num)) {
+	case 0:
+		return "Skinny";
+		
+	case 1:
+		return "Fit";
+	case 2:
+		return "Athletic";
+	case 3:
+		return "Curvy";
+	case 4:
+		return "Fat";
+	default:
+		return "Not set";
+	}
+}
+
+function getEyeColor(num) {
+	switch(parseInt(num)) {
+	case 0:
+		return "Dark Brown";
+	case 1:
+		return "Light Brown";
+	case 2:
+		return "Blue";
+	case 3:
+		return "Green";
+	case 4:
+		return "Hazel";
+	default:
+		return "Not set";
+	}
+}
+
+function getHairColor(num) {
+	switch(parseInt(num)) {
+	case 0:
+		return "Black";
+	case 1:
+		return "Light Brown";
+	case 2:
+		return "Dark Brown";
+	case 3:
+		return "Blonde";
+	case 4:
+		return "Red";
+	default:
+		return "Not set";
+	}
+}
